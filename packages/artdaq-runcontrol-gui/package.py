@@ -16,6 +16,7 @@ class ArtdaqRuncontrolGui(CMakePackage):
     list_url = "https://api.github.com/repos/SBNSoftware/artdaq-runcontrol-gui/tags"
 
     version("1.03.04", sha256="57273320a95de6abacf4a853b53507710bb505a3e33dd09b74e3fd1b0e2e94ea")
+    version("1.03.05", sha256="3c5dceeebd4cec1d81a8c2af460db89ae8f927c979ae0512c83c7267c283f82f")
     
     depends_on("artdaq-daqinterface")
     depends_on("qt")

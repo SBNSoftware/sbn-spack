@@ -15,6 +15,15 @@ class Wibtools(CMakePackage):
     git_base = "https://github.com/SBNSoftware/wibtools.git"
     list_url = "https://api.github.com/repos/SBNSoftware/wibtools/tags"
 
+   
+    version("1.10.00", sha256="d729cd877212b5e2138930f645657e37ac21d013398a6ffdd2ccb97194d03876")   
+    version("1.09.01", sha256="0702a5c8bf7cfa936557a95d6320e872651b90bbc9457e853f25e9048fbdda0f")
+    version("1.09.00", sha256="4835bf6185481bf500551042a6cb9e2e28811262745a497f92bb409a525cf557")
+    version("1.08.06", sha256="9e9e0c46dc082a2f0de5abd1f6054c31e60cbdcb43ea8a796249a8b5cce1ea80")
+    version("1.08.05", sha256="9f0a26689bcb2acebb34f315989c8c7ebda8d80fcc0f531879628aa1128a3d47")
+    version("1.08.04", sha256="1088189c0e66c32547d381ceb6d9ddcaa054438e0dcec8e82dc443369d77f46b")
+    version("1.08.03", sha256="1ec4d4bb2f508069eaf56d619486b19b9ccc4aaca93141846c4bcac8c6266d6c")
+    version("1.08.02", sha256="3034d12ad162090ede7476c4dc9867c1ee5bbdfc1b6d377dd1b49eca0ff131ce")
     version("1.08.00", sha256="1c496184d30f3c5aa633add614c6ccd517b9c46a7d128e6c2049fcbe445b2190")
     version("1.07.01", sha256="1db3bc7dc75b47e603e817bf978e88277c4f0b04d430d508efada44d934bc675")
     version("1.06.00", sha256="d7716683fed7742d2202b522499dd74507af442c2c7945d0d668f75590535464")
