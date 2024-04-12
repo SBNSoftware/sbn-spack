@@ -20,17 +20,17 @@ class Sbndaq(CMakePackage):
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq/tags"
 
     version("develop", git=git_base, branch="develop", get_full_repo=True)
-    version("1.10.00", sha256="f0753c27bda6d5f81a8610ed6bee36286c16d4d24e844da626129f6c72340319")
-    version("1.09.02", sha256="a3b30c878bdbc8fbabecae0035640c14d64ab07cc3405559d26eba9bc77b787f")
-    version("1.09.01", sha256="6ff41011d1cee9bf6dcd2ee7919de6ff030fdf0387d052a57094d1d22227d613")
-    version("1.09.00", sha256="d7c5b4d809a4838ec520c3afbe9ebb35bf20b0cfcc4fdcabff2a550fce2c99b2")
-    version("1.08.06", sha256="84fb16af0a6581d5aeec325a7a2a2193fdb7e159a23ea0f68617fcf73beb7727")
-    version("1.08.05", sha256="f03dc93293890b9b19215354f54abba9ad2b766bb2613e69b7baf8a28c31f195")
-    version("1.08.04", sha256="e438f8bfcf72d285126c28275d9e93ea9b954dcadbc0c565f9f7561b44978610")
-    version("1.08.01", sha256="dddb3f09e64635bd9cff416f183f393604bcdacac1f165427d0b66c847643b5c")
-    version("1.08.00", sha256="8cdc92caf95566cbc85f099dd60a4f2dcd61d38161753cf7e3dcbe23e1ea1016")
-    version("1.07.02", sha256="e6c47ba6e7004dde87c1791d9417ee3245508f272f208470435cec1ffe71998d")
-    version("1.07.01", sha256="c590c494c16a264e7f79dc03595a2f15d0b486a3b629ce09742e14e8ea32ccc2")
+
+    version("v1_10_01", sha256="d6bea502d1b577451ee2e27eb4678c588bfe8820140f30ab76f2f7f240a0e1f6")
+    version("v1_10_00", sha256="f0753c27bda6d5f81a8610ed6bee36286c16d4d24e844da626129f6c72340319")
+    version("v1_09_02", sha256="a3b30c878bdbc8fbabecae0035640c14d64ab07cc3405559d26eba9bc77b787f")
+    version("v1_09_01", sha256="6ff41011d1cee9bf6dcd2ee7919de6ff030fdf0387d052a57094d1d22227d613")
+    version("v1_09_00", sha256="d7c5b4d809a4838ec520c3afbe9ebb35bf20b0cfcc4fdcabff2a550fce2c99b2")
+    version("v1_08_06", sha256="84fb16af0a6581d5aeec325a7a2a2193fdb7e159a23ea0f68617fcf73beb7727")
+    version("v1_08_05", sha256="f03dc93293890b9b19215354f54abba9ad2b766bb2613e69b7baf8a28c31f195")
+    version("v1_08_04", sha256="e438f8bfcf72d285126c28275d9e93ea9b954dcadbc0c565f9f7561b44978610")
+    version("v1_08_01", sha256="dddb3f09e64635bd9cff416f183f393604bcdacac1f165427d0b66c847643b5c")
+    version("v1_08_00", sha256="8cdc92caf95566cbc85f099dd60a4f2dcd61d38161753cf7e3dcbe23e1ea1016")
 
     variant(
         "cxxstd",

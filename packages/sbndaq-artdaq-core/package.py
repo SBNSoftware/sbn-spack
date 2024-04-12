@@ -17,15 +17,13 @@ class SbndaqArtdaqCore(CMakePackage):
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq-artdaq-core/tags"
 
     version("develop", git=git_base, branch="develop", get_full_repo=True)
-    version("1.10.00", sha256="219df9d450107afc9ef38e7c77e704b719ac621d5c92e9d0aeca8aa48a13895d")
-    version("1.09.01", sha256="bb47b25a02a58bc3233dc4d38543ff38e79bb03b6840ed716b7319327962560d")
-    version("1.09.00", sha256="76fcd5e9b8e2167268f23c549c825445de94e4e69941ffb0a70297a8093b1ca5")
-    version("1.08.00of0", sha256="4b839b28a9ac17b89a3c33f840fb7cd3ae96f13c12ab461794a7dd04b144b024")
-    version("1.08.00", sha256="02c5008d8b411f3edd8a67be9ae4f51fba840533693c624981a649679c0e43dd")
-    version("1.07.01", sha256="edf3b55215c7b9f034188eeebad33654d938f60073cc568e4ba8f5f23c0515a7")
-    version("1.07.00of0", sha256="e57e4ffe9a0824af9a0d3ce5f692bb9c7a0d1fbc40256991b2f47c888919be72")
-    version("v1_00_00of0", git=git_base, tag="v1_00_00of0", get_full_repo=True)
-    version("v1_00_00of2", git=git_base, tag="v1_00_00of2", get_full_repo=True)
+
+    version("v1_10_01", sha256="7dd4d1240f3fcde891a2431b1fd1376385dc78ead8cf131443c5a57eef606912")
+    version("v1_10_00", sha256="219df9d450107afc9ef38e7c77e704b719ac621d5c92e9d0aeca8aa48a13895d")
+    version("v1_09_01", sha256="bb47b25a02a58bc3233dc4d38543ff38e79bb03b6840ed716b7319327962560d")
+    version("v1_09_00", sha256="76fcd5e9b8e2167268f23c549c825445de94e4e69941ffb0a70297a8093b1ca5")
+    version("v1_08_00of0", sha256="4b839b28a9ac17b89a3c33f840fb7cd3ae96f13c12ab461794a7dd04b144b024")
+    version("v1_08_00", sha256="02c5008d8b411f3edd8a67be9ae4f51fba840533693c624981a649679c0e43dd")
 
     variant(
         "cxxstd",
@@ -59,8 +57,7 @@ class SbndaqArtdaqCore(CMakePackage):
         )
 
     #patch("cetmodules2.patch", when="@develop")
-    patch("v1_00_00of0.patch", when="@v1_00_00of0")
-    patch("v1_00_00of2.patch", when="@v1_00_00of2")
+    #patch("v1_00_00of0.patch", when="@v1_00_00of0")
 
     depends_on("messagefacility")
     depends_on("cetmodules", type="build")
