@@ -56,7 +56,7 @@ class SbndaqArtdaq(CMakePackage):
     depends_on("cetmodules", type="build")
 
     def url_for_version(self, version):
-        url = "https://github.com/SBNSoftware/{0}/archive/v{1}.tar.gz"
+        url = "https://github.com/SBNSoftware/{0}/archive/refs/tags/{1}.tar.gz"
         return url.format(self.name, version.underscored)
 
     def fetch_remote_versions(self, concurrency=None):
