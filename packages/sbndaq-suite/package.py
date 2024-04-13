@@ -52,7 +52,7 @@ class SbndaqSuite(BundlePackage):
     with when("@v1_10_01"):
         depends_on("artdaq-suite@v3_13_00")
         #
-        depends_on("wibtools@1_10_01")
+        depends_on("wibtools@v1_10_01")
         depends_on("sbndaq-artdaq-core@v1_10_01")
         depends_on("sbndaq-artdaq@v1_10_01")
         depends_on("sbndaq@v1_10_01")
