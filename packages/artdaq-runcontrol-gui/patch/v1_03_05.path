@@ -1,0 +1,177 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ba0c635..0d653c4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,67 +1,86 @@
+ # ======================================================================
+-# artdaq_runcontrol_gui main build file
++#  artdaq_mfextensions main build file
+ #
+ #  cd .../path/to/build/directory
+-#  source .../path/to/artdaq_runcontrol_gui/ups/setup_for_development
++#  source .../path/to/artdaq/ups/setup_for_development
+ #  cmake [-DCMAKE_INSTALL_PREFIX=/install/path]
++#        -Dqualifier:STRING=$CETPKG_QUAL
+ #        -DCMAKE_BUILD_TYPE=$CETPKG_TYPE
+ #        $CETPKG_SOURCE
+ #  make
+ #  make test
+ #  make install
+-#  make package (builds distribution tarfile)
+-#  buildtool
++#  make package
+ # ======================================================================
+ 
++cmake_minimum_required (VERSION 3.19 FATAL_ERROR)
+ 
++find_package(cetmodules 3.16.00 REQUIRED)
+ 
+-# use cmake 3.7 or later
+-cmake_minimum_required (VERSION 3.7)
+-
+-project(artdaq-runcontrol-gui)
+-
+-# cetbuildtools contains our cmake modules
+-SET ( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
+-IF (NOT CETBUILDTOOLS_VERSION)
+-  MESSAGE (FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules")
+-ENDIF()
+-
+-set(CMAKE_MODULE_PATH
+-  $ENV{CETBUILDTOOLS_DIR}/Modules
+-  ${CMAKE_MODULE_PATH})
+-
++project(artdaq-runcontrol-gui VERSION 1.03.05)
+ 
+ include(CetCMakeEnv)
+ cet_cmake_env()
+ 
++# Find our own CMake modules, and tell everyone else where to find them.
++cet_cmake_module_directories(Modules BINARY)
++
+ cet_set_compiler_flags(DIAGS VIGILANT
+   WERROR
+   NO_UNDEFINED
+   EXTRA_FLAGS -std=c++11 -Wall -Wextra -pedantic -Wconversion
+-  )
+-
+-SET ( SANITIZE_ADDRESS $ENV{SANITIZE_ADDRESS} )
+-IF ( SANITIZE_ADDRESS )
+-  MESSAGE (STATUS "Enable  -fsanitize=address -Wno-unused-command-line-argument -fno-omit-frame-pointer")
+-  cet_add_compiler_flags(-fsanitize=address -Wno-unused-command-line-argument -fno-omit-frame-pointer)
+-ENDIF()
++)
++
++# Debug streamer.
++string(TOUPPER ${CMAKE_BUILD_TYPE} BTYPE_UC)
++if(BTYPE_UC STREQUAL DEBUG)
++  add_definitions(-DDEBUGME)
++  if(DEFINED ENV{USE_ASAN})
++    if($ENV{USE_ASAN} GREATER 0)
++      message("!!! Address Sanitizer Activated!!!")
++      add_compile_options(-fsanitize=address -Wno-unused-command-line-argument)
++      add_link_options(-lasan)
++    endif()
++  endif()
++  if(DEFINED ENV{USE_TSAN})
++    if($ENV{USE_TSAN} GREATER 0)
++      message("!!! Thread Sanitizer Activated!!!")
++      add_compile_options(-fsanitize=thread -Wno-unused-command-line-argument)
++      add_link_options(-ltsan)
++    endif()
++  endif()
++  if(DEFINED ENV{USE_UBSAN})
++    if($ENV{USE_UBSAN} GREATER 0)
++      message("!!! Undefined Sanitizer Activated!!!")
++      add_compile_options(-fsanitize=undefined -Wno-unused-command-line-argument)
++      add_link_options(-lubsan)
++    endif()
++  endif()
++  if(DEFINED ENV{USE_GCOV})
++    add_compile_options(-fprofile-arcs -ftest-coverage --coverage)
++    add_link_options(--coverage)
++  endif()
++endif()
+ 
+ cet_report_compiler_flags()
+ 
+-# these are minimum required versions, not the actual product versions
+-#find_ups_product( TRACE v3_09_01 )
+-find_ups_product( cetbuildtools v5_08_01 )
++# Qt
++#set(CMAKE_INCLUDE_CURRENT_DIR ON)
++#set(CMAKE_AUTOMOC ON)
++#set(CMAKE_AUTOUIC ON)
++#find_package(Qt5Widgets)
++#find_package(Qt5Core)
+ 
+-set(TOP_CMAKE_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
++# Debug streamer.
++string(TOUPPER ${CMAKE_BUILD_TYPE} BTYPE_UC)
++if(BTYPE_UC STREQUAL DEBUG)
++  add_definitions(-DDEBUGME)
++endif()
+ 
+-include(CetTest)
++set(TOP_CMAKE_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+ 
++#cet_register_export_set(SET_NAME artdaq_mfextensions NAMESPACE artdaq_mfextensions)
+ # source
+ add_subdirectory(artdaq-runcontrol)
+-# add_subdirectory(test)
+-
+-# ups - table and config files
+-add_subdirectory(ups)
+ 
+-# packaging utility
+-include(UseCPack)
++cet_cmake_config()
+diff --git a/artdaq-runcontrol/CMakeLists.txt b/artdaq-runcontrol/CMakeLists.txt
+index ccb332a..e297edb 100644
+--- a/artdaq-runcontrol/CMakeLists.txt
++++ b/artdaq-runcontrol/CMakeLists.txt
+@@ -2,25 +2,13 @@ cmake_minimum_required(VERSION 3.1.0)
+ 
+ project(artdaq-runcontrol)
+ 
+-add_definitions(-DVERSION="v1_03_04")
++add_definitions(-DVERSION="v1_03_05")
+ add_definitions(-DNAME="artdaq-runcontrol-gui")
+-add_definitions(-DSYSTEM="slf7-x86_64-e20-prof")
++add_definitions(-DSYSTEM="slf7-x86_64-e26-prof")
+ 
+ add_definitions(-DGIT_HASH="warawara")
+ add_definitions(-DGIT_BRANCH="master")
+ cet_add_compiler_flags( -Wno-deprecated-declarations )
+-# # Not working attempt:
+-# add_definitions(-DVERSION="${CPACK_PACKAGE_VERSION}")
+-# add_definitions(-DNAME="${CPACK_PACKAGE_NAME}")
+-# add_definitions(-DSYSTEM="${CPACK_SYSTEM_NAME}")
+-
+-# # Some other non working attempts
+-# add_definitions(-DGIT_CURRENT_SHA1="$(shell git -C \""$$_PRO_FILE_PWD_"\" describe)")
+-# add_definitions(-DGIT_CURRENT_SHA1="asdasdasdasf")
+-# add_definitions(-DGIT_HASH=`git rev-parse HEAD`)
+-# add_definitions(-DCOMPILE_TIME=`date -u +'%Y-%m-%d %H:%M:%S UTC'`)
+-# add_definitions(-DGIT_BRANCH="$(shell git rev-parse --abbrev-ref HEAD)")
+-# add_definitions(-DGIT_VERSION = $$system(git --git-dir $$PWD/.git --work-tree $$PWD describe --always --tags))
+ 
+ # Find includes in corresponding build directories
+ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+@@ -64,8 +52,12 @@ add_executable(artdaqRunControl ${artdaq-runcontrol_srcs})
+ # Use the Widgets module from Qt 5
+ target_link_libraries(artdaqRunControl Qt5::Widgets xmlrpc_util++ xmlrpc_client++ xmlrpc++)
+ 
++get_cmake_property(_variableNames VARIABLES)
++list (SORT _variableNames)
++foreach (_variableName ${_variableNames})
++    message(STATUS "${_variableName}=${${_variableName}}")
++endforeach()
+ 
+-install(DIRECTORY ${TOP_CMAKE_BINARY_DIR}/bin DESTINATION  ${flavorqual_dir} FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )
+-install(DIRECTORY ${TOP_CMAKE_BINARY_DIR}/lib DESTINATION  ${flavorqual_dir} FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )
+-install(DIRECTORY ${TOP_CMAKE_BINARY_DIR}/resources DESTINATION  ${flavorqual_dir} FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )
+-install(DIRECTORY ${TOP_CMAKE_BINARY_DIR}/resources DESTINATION  ${flavorqual_dir} FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )
++#install(DIRECTORY ${TOP_CMAKE_BINARY_DIR} DESTINATION  ${CMAKE_INSTALL_PREFIX}/bin FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )
++install(TARGETS artdaqRunControl DESTINATION bin)
++install(DIRECTORY ${TOP_CMAKE_BINARY_DIR}/resources DESTINATION  .  FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE )

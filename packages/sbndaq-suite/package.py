@@ -13,7 +13,7 @@ class SbndaqSuite(BundlePackage):
 
     homepage="https://sbnsoftware.github.io/"
     
-    squals = ("120a", "120b", "130")
+    squals = ("120a", "120b","128","130")
 
     version("develop")
     
@@ -25,7 +25,7 @@ class SbndaqSuite(BundlePackage):
     
     variant(
         "s",
-        default="130",
+        default="128",
         values=("0",) + squals,
         multi=False,
         description="Artdaq suite version to use",
@@ -48,6 +48,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq-core@develop")
         depends_on("sbndaq-artdaq@develop")
         depends_on("sbndaq@develop")
+        depends_on("artdaq-runcontrol-gui@develop")
     
     with when("@v1_10_01"):
         depends_on("artdaq-suite@v3_13_00")
@@ -56,6 +57,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq-core@v1_10_01")
         depends_on("sbndaq-artdaq@v1_10_01")
         depends_on("sbndaq@v1_10_01")
+        depends_on("artdaq-runcontrol-gui@v1_03_05")
     
     with when("@v1_10_00"):
         depends_on("artdaq-suite@v3_13_00")
