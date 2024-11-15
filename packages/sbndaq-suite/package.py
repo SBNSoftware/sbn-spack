@@ -17,6 +17,7 @@ class SbndaqSuite(BundlePackage):
 
     version("develop")
     
+    version("v1_10_03")
     version("v1_10_02")
     version("v1_10_01")
     version("v1_10_00")
@@ -57,6 +58,15 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@develop")
         depends_on("sbndaq@develop")
         depends_on("artdaq-runcontrol-gui@develop")
+    
+    with when("@v1_10_03"):
+        depends_on("artdaq-suite@v3_13_02")
+        #
+        depends_on("wibtools@v1_10_03")
+        depends_on("sbndaq-artdaq-core@v1_10_03")
+        depends_on("sbndaq-artdaq@v1_10_03")
+        depends_on("sbndaq@v1_10_03")
+        depends_on("artdaq-runcontrol-gui@v1_03_05")
     
     with when("@v1_10_02"):
         depends_on("artdaq-suite@v3_13_02")

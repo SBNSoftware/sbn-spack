@@ -8,10 +8,12 @@ import sys
 
 from spack import *
 
+
 def sanitize_environments(env, *vars):
     for var in vars:
         env.prune_duplicate_paths(var)
         env.deprioritize_system_paths(var)
+
 
 class Sbndaq(CMakePackage):
     """Common code and utilities for SBN DAQs"""
@@ -20,8 +22,8 @@ class Sbndaq(CMakePackage):
     url = "https://github.com/SBNSoftware/sbndaq"
     git_base = "https://github.com/SBNSoftware/sbndaq.git"
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq/tags"
-    
-    version("v1_10_03", sha256="5bf0215c9d4146142e00455e4ca12231c42ab35f01e6b49f4baae0bbb57cc561")
+
+    version("v1_10_03", sha256="b6c25ef4ca475dd7fff2d5c12f5242045f37801ae20948954b19daf88a9a8f41")
     version("v1_10_02", sha256="ec0b142cb2625015afa7c7c970f5be9980dc96eaf3f868651d4546e89ecdac32")
     version("v1_10_01", sha256="d6bea502d1b577451ee2e27eb4678c588bfe8820140f30ab76f2f7f240a0e1f6")
     version("v1_10_00", sha256="f0753c27bda6d5f81a8610ed6bee36286c16d4d24e844da626129f6c72340319")
@@ -42,9 +44,15 @@ class Sbndaq(CMakePackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
-    
-    variant("icarus", default=False, description="Build ICARUS-specific parts of the package")
-    variant("sbnd", default=False, description="Build SBND-specific parts of the package")
+
+    variant(
+        "icarus",
+        default=False,
+        description="Build ICARUS-specific parts of the package",
+    )
+    variant(
+        "sbnd", default=False, description="Build SBND-specific parts of the package"
+    )
 
     depends_on("sbndaq-artdaq")
     depends_on("sbndaq-artdaq+icarus", when="+icarus")
@@ -76,7 +84,7 @@ class Sbndaq(CMakePackage):
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
             "-DICARUS_BUILD={0}".format(int("+icarus" in self.spec)),
             "-DSBND_BUILD={0}".format(int("+sbnd" in self.spec)),
-            "-DSPACK_BUILD=1"
+            "-DSPACK_BUILD=1",
         ]
         return args
 

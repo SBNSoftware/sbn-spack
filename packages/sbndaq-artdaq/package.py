@@ -8,10 +8,12 @@ import sys
 
 from spack import *
 
+
 def sanitize_environments(env, *vars):
     for var in vars:
         env.prune_duplicate_paths(var)
         env.deprioritize_system_paths(var)
+
 
 class SbndaqArtdaq(CMakePackage):
     """Readout software for the SBN experiments"""
@@ -21,7 +23,7 @@ class SbndaqArtdaq(CMakePackage):
     git_base = "https://github.com/SBNSoftware/sbndaq-artdaq.git"
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq-artdaq/tags"
 
-    version("v1_10_03", sha256="afd6d638476d84728c51247c421b634ce48dfb6dc540e655ca2def0e4446e7a7")
+    version("v1_10_03", sha256="cefd5fc2a2627563876e05065e582f71830afcbd59a7900b1335394be7ab0e33")
     version("v1_10_02", sha256="ef214578b77982a2e33443d6324683c40df2ac4cd3078d242ff3bf99d4bfcb95")
     version("v1_10_01", sha256="e343567c84c926aa9a247f9278d91bdc9566984b22d0115746807408d7ca7b40")
     version("v1_10_00", sha256="4bdf854e55fc23de385aafee01e3d658411bf0402fd87578a8efc77be0e18b7c")
@@ -34,9 +36,15 @@ class SbndaqArtdaq(CMakePackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
-    
-    variant("icarus", default=False, description="Build ICARUS-specific parts of the package")
-    variant("sbnd", default=False, description="Build SBND-specific parts of the package")
+
+    variant(
+        "icarus",
+        default=False,
+        description="Build ICARUS-specific parts of the package",
+    )
+    variant(
+        "sbnd", default=False, description="Build SBND-specific parts of the package"
+    )
 
     depends_on("artdaq")
     depends_on("sbndaq-artdaq-core")
@@ -47,7 +55,7 @@ class SbndaqArtdaq(CMakePackage):
     depends_on("caendigitizer")
     depends_on("libpqxx")
     depends_on("postgresql")
-    depends_on("artdaq-epics-plugin") # For FindEPICS.cmake
+    depends_on("artdaq-epics-plugin")  # For FindEPICS.cmake
     depends_on("epics-base")
     depends_on("cppzmq")
     depends_on("jsoncpp")
@@ -57,7 +65,7 @@ class SbndaqArtdaq(CMakePackage):
     depends_on("hiredis")
     depends_on("cetmodules", type="build")
 
-    patch("patch/v1_10_01.path", when="@v1_10_01" )
+    patch("patch/v1_10_01.path", when="@v1_10_01")
 
     def url_for_version(self, version):
         url = "https://github.com/SBNSoftware/{0}/archive/refs/tags/{1}.tar.gz"
@@ -78,13 +86,13 @@ class SbndaqArtdaq(CMakePackage):
                 ],
             )
         )
-    
+
     def cmake_args(self):
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
             "-DICARUS_BUILD={0}".format(int("+icarus" in self.spec)),
             "-DSBND_BUILD={0}".format(int("+sbnd" in self.spec)),
-            "-DSPACK_BUILD=1"
+            "-DSPACK_BUILD=1",
         ]
         return args
 
@@ -109,4 +117,3 @@ class SbndaqArtdaq(CMakePackage):
         env.prepend_path("FHICL_FILE_PATH", prefix + "/fcl")
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "FHICL_FILE_PATH")
-    
