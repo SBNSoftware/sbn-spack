@@ -72,11 +72,11 @@ class SbndaqSuite(BundlePackage):
         depends_on("caencomm@1.7.0")
         depends_on("caendigitizer@2.17.3")
         #
-        depends_on("wibtools@v1_10_03")
-        depends_on("sbndaq-artdaq-core@v1_10_03")
+        depends_on("wibtools@v1_10_04")
+        depends_on("sbndaq-artdaq-core@v1_10_04")
         depends_on("sbndaq-artdaq@v1_10_04")
-        depends_on("sbndaq@v1_10_03")
-        depends_on("artdaq-runcontrol-gui@v1_03_05")
+        depends_on("sbndaq@v1_10_04")
+        depends_on("artdaq-runcontrol-gui@v1_03_06")
     
     with when("@v1_10_03"):
         depends_on("artdaq-suite@v3_13_02")
