@@ -15,13 +15,14 @@ class SbndaqSuite(BundlePackage):
     
     squals = ("128","131")
 
-    version("develop")
     
     version("v1_10_04")
     version("v1_10_03")
     version("v1_10_02")
     version("v1_10_01")
     version("v1_10_00")
+    
+    version("develop")
 
     variant("icarus", default=True, description="Build ICARUS-specific parts of the package")
     variant("sbnd", default=True, description="Build SBND-specific parts of the package")
@@ -122,6 +123,7 @@ class SbndaqSuite(BundlePackage):
         #
         depends_on("caenvmelib@4.0.1")
         depends_on("caencomm@1.7.0")
+        depends_on("caendigitizer@2.17.3")
         #
         depends_on("wibtools@v1_10_00")
         depends_on("sbndaq-artdaq-core@v1_10_00")
