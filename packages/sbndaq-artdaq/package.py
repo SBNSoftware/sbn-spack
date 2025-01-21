@@ -23,6 +23,7 @@ class SbndaqArtdaq(CMakePackage):
     git_base = "https://github.com/SBNSoftware/sbndaq-artdaq.git"
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq-artdaq/tags"
 
+    version("v1_10_05", sha256="206ecae018ccd5c7df355060595e2c0c8f7a4b8547b4c2fcd0c1189a888f0df7")
     version("v1_10_04", sha256="de9347aae839557d0128791d430ee18024d1837e5eef0391ee488b295f44ac4c")
     version("v1_10_03", sha256="cefd5fc2a2627563876e05065e582f71830afcbd59a7900b1335394be7ab0e33")
     version("v1_10_02", sha256="ef214578b77982a2e33443d6324683c40df2ac4cd3078d242ff3bf99d4bfcb95")
