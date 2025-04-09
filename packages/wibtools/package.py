@@ -24,6 +24,7 @@ class Wibtools(CMakePackage):
     version("v1_10_01", sha256="66d85edb4516c01adc85378427776fc85ca001eb27613cf32ab819275d058975")
     version("v1_10_00", sha256="d729cd877212b5e2138930f645657e37ac21d013398a6ffdd2ccb97194d03876")
     
+    version("migration", git=git_base, branch="feature/upgrade_gcc13.1.0", get_full_repo=True)
     version("develop", git=git_base, branch="develop", get_full_repo=True)
 
     variant(

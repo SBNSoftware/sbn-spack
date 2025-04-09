@@ -31,6 +31,8 @@ class Sbndaq(CMakePackage):
     version("v1_10_02", sha256="ec0b142cb2625015afa7c7c970f5be9980dc96eaf3f868651d4546e89ecdac32")
     version("v1_10_01", sha256="d6bea502d1b577451ee2e27eb4678c588bfe8820140f30ab76f2f7f240a0e1f6")
     version("v1_10_00", sha256="f0753c27bda6d5f81a8610ed6bee36286c16d4d24e844da626129f6c72340319")
+
+    version("migration", git=git_base, branch="feature/upgrade_gcc13.1.0", get_full_repo=True)
     version("develop", git=git_base, branch="develop", get_full_repo=True)
 
     variant(
