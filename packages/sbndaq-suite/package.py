@@ -45,9 +45,9 @@ class SbndaqSuite(BundlePackage):
         depends_on(f"artdaq-suite s={squal}", when=f"s={squal}")
     depends_on("artdaq-suite", when="s=0") 
 
-    depends_on("elfutils+nls ldflags=-lintl")
-    depends_on("libxpm ldflags=-lintl")
-    depends_on("krb5 ldflags=-lintl")
+    #depends_on("elfutils+nls ldflags=-lintl")
+    #depends_on("libxpm ldflags=-lintl")
+    #depends_on("krb5 ldflags=-lintl")
     depends_on("root+spectrum", when="+sbnd")
     depends_on("artdaq-suite+db+epics+demo~pcp")
     depends_on("sbndaq+sbnd", when="+sbnd") 
