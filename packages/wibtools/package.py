@@ -6,8 +6,7 @@
 import os
 import sys
 
-from spack import *
-
+from spack.package import *
 
 class Wibtools(CMakePackage):
     """Tools for communicating with the WIB hardware"""

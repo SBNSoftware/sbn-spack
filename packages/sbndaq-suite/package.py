@@ -6,7 +6,7 @@
 import os
 import sys
 
-from spack import *
+from spack.package import *
 
 class SbndaqSuite(BundlePackage):
     """The sbndaq suite; artdaq is a data acquisition framework that leverages the analysis capabilities of art"""
@@ -57,7 +57,7 @@ class SbndaqSuite(BundlePackage):
     depends_on("binutils@2.43.1+gas")
 
     with when("@migration"):
-        depends_on("artdaq-suite@v3_13_02")
+        depends_on("artdaq-suite@v3_15_00")
         #
         depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
