@@ -25,7 +25,9 @@ class SbndaqSuite(BundlePackage):
     version("v1_10_01")
     version("v1_10_00")
     
-    version("migration")
+    version("migration_artdaqv3_13_02")
+    version("migration_artdaqv4_01_00")
+
     version("develop")
 
     variant("icarus", default=True, description="Build ICARUS-specific parts of the package")
@@ -56,8 +58,8 @@ class SbndaqSuite(BundlePackage):
     depends_on("gdb@14.2+tui+source-highlight+ld+lto+quad", when="+gdb")
     depends_on("binutils@2.43.1+gas")
 
-    with when("@migration"):
-        depends_on("artdaq-suite@v3_15_00")
+    with when("@migration_artdaqv4_01_00"):
+        depends_on("artdaq-suite@v4_01_00")
         #
         depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
@@ -69,6 +71,20 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq@migration")
         #depends_on("artdaq-runcontrol-gui@develop")
     
+    with when("@migration_artdaqv3_13_02"):
+
+        depends_on("artdaq-suite@v3_13_02")
+        #
+        depends_on("caenvmelib@4.0.2")
+        depends_on("caencomm@1.7.0")
+        depends_on("caendigitizer@2.17.3")
+        #
+        depends_on("wibtools@migration")
+        depends_on("sbndaq-artdaq-core@migration")
+        depends_on("sbndaq-artdaq@migration")
+        depends_on("sbndaq@migration")
+        #depends_on("artdaq-runcontrol-gui@develop")
+ 
     with when("@develop"):
         depends_on("artdaq-suite@v3_13_02")
         #
