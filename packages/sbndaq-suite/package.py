@@ -25,10 +25,8 @@ class SbndaqSuite(BundlePackage):
     version("v1_10_01")
     version("v1_10_00")
     
-    version("migration_C17_artdaqv3_13_02")
-    version("migration_C20_artdaqv3_13_02")
-    version("migration_C17_artdaqv4_01_00")
-    version("migration_C20_artdaqv4_01_00")
+    version("migration_artdaqv3_13_02")
+    version("migration_artdaqv4_01_00")
 
     version("develop")
 
@@ -40,7 +38,7 @@ class SbndaqSuite(BundlePackage):
     variant(
         "cxxstd",
         default="17",
-        values=("14", "17", "20"),
+        values=("17", "20"),
         multi=False,
         description="Use the specified C++ standard when building.",
     )
@@ -64,58 +62,30 @@ class SbndaqSuite(BundlePackage):
     depends_on("gdb@14.2+tui+source-highlight+ld+lto+quad", when="+gdb")
     depends_on("binutils@2.43.1+gas")
 
-    with when("@migration_C20_artdaqv4_01_00"):
-        depends_on("artdaq-suite@v4_01_00" )
-        #
-        depends_on("caenvmelib@4.0.2")
-        depends_on("caencomm@1.7.0")
-        depends_on("caendigitizer@2.17.3")
-        #
-        depends_on("wibtools@migration cxxstd=20" )
-        depends_on("sbndaq-artdaq-core@migration cxxstd=20" )
-        depends_on("sbndaq-artdaq@migration cxxstd=20" )
-        depends_on("sbndaq@migration cxxstd=20")
-        #depends_on("artdaq-runcontrol-gui@develop")
-    
-    with when("@migration_C17_artdaqv4_01_00"):
+    with when("@migration_artdaqv4_01_00"):
         depends_on("artdaq-suite@v4_01_00")
         #
         depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
         depends_on("caendigitizer@2.17.3")
         #
-        depends_on("wibtools@migration cxxstd=17")
-        depends_on("sbndaq-artdaq-core@migration cxxstd=17")
-        depends_on("sbndaq-artdaq@migration cxxstd=17")
-        depends_on("sbndaq@migration cxxstd=17")
+        depends_on("wibtools@migration")
+        depends_on("sbndaq-artdaq-core@migration")
+        depends_on("sbndaq-artdaq@migration")
+        depends_on("sbndaq@migration")
         #depends_on("artdaq-runcontrol-gui@develop")
   
-    with when("@migration_C20_artdaqv3_13_02"):
-
+    with when("@migration_artdaqv3_13_02"):
         depends_on("artdaq-suite@v3_13_02")
         #
         depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
         depends_on("caendigitizer@2.17.3")
         #
-        depends_on("wibtools@migration cxxstd=20")
-        depends_on("sbndaq-artdaq-core@migration cxxstd=20")
-        depends_on("sbndaq-artdaq@migration cxxstd=20")
-        depends_on("sbndaq@migration cxxstd=20")
-        #depends_on("artdaq-runcontrol-gui@develop")
-
-    with when("@migration_C17_artdaqv3_13_02"):
-
-        depends_on("artdaq-suite@v3_13_02")
-        #
-        depends_on("caenvmelib@4.0.2")
-        depends_on("caencomm@1.7.0")
-        depends_on("caendigitizer@2.17.3")
-        #
-        depends_on("wibtools@migration cxxstd=17")
-        depends_on("sbndaq-artdaq-core@migration cxxstd=17")
-        depends_on("sbndaq-artdaq@migration cxxstd=17")
-        depends_on("sbndaq@migration cxxstd=17")
+        depends_on("wibtools@migration")
+        depends_on("sbndaq-artdaq-core@migration")
+        depends_on("sbndaq-artdaq@migration")
+        depends_on("sbndaq@migration")
         #depends_on("artdaq-runcontrol-gui@develop")
  
     with when("@develop"):
