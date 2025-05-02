@@ -63,7 +63,8 @@ class SbndaqSuite(BundlePackage):
     depends_on("binutils@2.43.1+gas")
 
     with when("@migration_artdaqv4_01_00"):
-        depends_on("artdaq-suite@v4_01_00")
+        depends_on("artdaq-suite@v4_01_00 cxxstd=17", when="cxxstd=17")
+        depends_on("artdaq-suite@v4_01_00 cxxstd=20", when="c:xxstd=20")
         #
         depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
@@ -76,7 +77,8 @@ class SbndaqSuite(BundlePackage):
         #depends_on("artdaq-runcontrol-gui@develop")
   
     with when("@migration_artdaqv3_13_02"):
-        depends_on("artdaq-suite@v3_13_02")
+        depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
+        depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
         #
         depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
@@ -89,16 +91,17 @@ class SbndaqSuite(BundlePackage):
         #depends_on("artdaq-runcontrol-gui@develop")
  
     with when("@develop"):
-        depends_on("artdaq-suite@v3_13_02")
+        depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
+        depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
         #
         depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
         depends_on("caendigitizer@2.17.3")
         #
-        depends_on("wibtools@develop cxxstd=20")
-        depends_on("sbndaq-artdaq-core@develop cxxstd=20")
-        depends_on("sbndaq-artdaq@develop cxxstd=20")
-        depends_on("sbndaq@develop cxxstd=20")
+        depends_on("wibtools@develop")
+        depends_on("sbndaq-artdaq-core@develop")
+        depends_on("sbndaq-artdaq@develop")
+        depends_on("sbndaq@develop")
         depends_on("artdaq-runcontrol-gui@develop")
     
     with when("@v1_10_07"):
