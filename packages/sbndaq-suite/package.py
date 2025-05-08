@@ -64,7 +64,7 @@ class SbndaqSuite(BundlePackage):
 
     with when("@migration_artdaqv4_01_00"):
         depends_on("artdaq-suite@v4_01_00 cxxstd=17", when="cxxstd=17")
-        depends_on("artdaq-suite@v4_01_00 cxxstd=20", when="c:xxstd=20")
+        depends_on("artdaq-suite@v4_01_00 cxxstd=20", when="cxxstd=20")
         #
         depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
