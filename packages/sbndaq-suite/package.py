@@ -12,10 +12,10 @@ class SbndaqSuite(BundlePackage):
     """The sbndaq suite; artdaq is a data acquisition framework that leverages the analysis capabilities of art"""
 
     homepage="https://sbnsoftware.github.io/"
-    
+
     squals = ("128","131","132")
 
-    
+
     version("v1_10_07")
     version("v1_10_06")
     version("v1_10_05")
@@ -24,7 +24,7 @@ class SbndaqSuite(BundlePackage):
     version("v1_10_02")
     version("v1_10_01")
     version("v1_10_00")
-    
+
     version("migration_artdaqv3_13_02")
     version("migration_artdaqv4_01_00")
 
@@ -52,12 +52,12 @@ class SbndaqSuite(BundlePackage):
     )
     for squal in squals:
         depends_on(f"artdaq-suite s={squal}", when=f"s={squal}")
-    depends_on("artdaq-suite", when="s=0") 
+    depends_on("artdaq-suite", when="s=0")
 
     depends_on("root+spectrum", when="+sbnd")
     depends_on("artdaq-suite+db+epics+demo~pcp")
-    depends_on("sbndaq+sbnd", when="+sbnd") 
-    depends_on("sbndaq+icarus", when="+icarus") 
+    depends_on("sbndaq+sbnd", when="+sbnd")
+    depends_on("sbndaq+icarus", when="+icarus")
 
     depends_on("gdb@14.2+tui+source-highlight+ld+lto+quad", when="+gdb")
     depends_on("binutils@2.43.1+gas")
@@ -74,8 +74,8 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq-core@migration")
         depends_on("sbndaq-artdaq@migration")
         depends_on("sbndaq@migration")
-        #depends_on("artdaq-runcontrol-gui@develop")
-  
+        depends_on("artdaq-runcontrol-gui@v1_03_06")
+
     with when("@migration_artdaqv3_13_02"):
         depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
         depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
@@ -88,8 +88,8 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq-core@migration")
         depends_on("sbndaq-artdaq@migration")
         depends_on("sbndaq@migration")
-        #depends_on("artdaq-runcontrol-gui@develop")
- 
+        depends_on("artdaq-runcontrol-gui@v1_03_06")
+
     with when("@develop"):
         depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
         depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
@@ -103,7 +103,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@develop")
         depends_on("sbndaq@develop")
         depends_on("artdaq-runcontrol-gui@develop")
-    
+
     with when("@v1_10_07"):
         depends_on("artdaq-suite@v3_13_02")
         #
@@ -116,7 +116,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_10_07")
         depends_on("sbndaq@v1_10_07")
         depends_on("artdaq-runcontrol-gui@v1_03_06")
-    
+
     with when("@v1_10_06"):
         depends_on("artdaq-suite@v3_13_02")
         #
@@ -129,7 +129,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_10_06")
         depends_on("sbndaq@v1_10_06")
         depends_on("artdaq-runcontrol-gui@v1_03_06")
-    
+
     with when("@v1_10_05"):
         depends_on("artdaq-suite@v3_13_02")
         #
@@ -155,7 +155,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_10_04")
         depends_on("sbndaq@v1_10_04")
         depends_on("artdaq-runcontrol-gui@v1_03_06")
-    
+
     with when("@v1_10_03"):
         depends_on("artdaq-suite@v3_13_02")
         #
@@ -168,7 +168,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_10_03")
         depends_on("sbndaq@v1_10_03")
         depends_on("artdaq-runcontrol-gui@v1_03_05")
-    
+
     with when("@v1_10_02"):
         depends_on("artdaq-suite@v3_13_02")
         #
@@ -181,7 +181,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_10_02")
         depends_on("sbndaq@v1_10_02")
         depends_on("artdaq-runcontrol-gui@v1_03_05")
-    
+
     with when("@v1_10_01"):
         depends_on("artdaq-suite@v3_13_00")
         #
@@ -194,7 +194,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_10_01")
         depends_on("sbndaq@v1_10_01")
         depends_on("artdaq-runcontrol-gui@v1_03_05")
-    
+
     with when("@v1_10_00"):
         depends_on("artdaq-suite@v3_13_00")
         #

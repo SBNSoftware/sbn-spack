@@ -15,6 +15,7 @@ class ArtdaqRuncontrolGui(CMakePackage):
     git_base = "https://github.com/SBNSoftware/artdaq-runcontrol-gui.git"
     list_url = "https://api.github.com/repos/SBNSoftware/artdaq-runcontrol-gui/tags"
 
+    version("master", git=git_base, branch="master", get_full_repo=True)
     version("develop", git=git_base, branch="develop", get_full_repo=True)
 
     version("v1_03_06",sha256="4eb76ffecbf016aa22237a6729a4cac7ebc4a3ddd241a2d70eeaeba344357a60",)
@@ -25,6 +26,8 @@ class ArtdaqRuncontrolGui(CMakePackage):
     depends_on("qt@5.15:")
     depends_on("xmlrpc-c")
 
+    patch("patch/master.patch", when="@master")
+    patch("patch/develop.patch", when="@develop")
     patch("patch/v1_03_06.patch", when="@v1_03_06")
     patch("patch/v1_03_05.patch", when="@v1_03_05")
 
