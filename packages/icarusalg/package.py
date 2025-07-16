@@ -7,6 +7,7 @@ import os
 
 import spack.util.spack_json as sjson
 from spack import *
+from spack.package import *
 
 
 def sanitize_environments(*args):
@@ -24,7 +25,6 @@ def sanitize_environments(*args):
             env.prune_duplicate_paths(var)
             env.deprioritize_system_paths(var)
 
-
 class Icarusalg(CMakePackage):
     """SignalProcessing for icarus
     framework for particle physics experiments.
@@ -41,9 +41,11 @@ class Icarusalg(CMakePackage):
         git=git_base,
         get_full_repo=True,
     )
-    version(
-        "09.37.02.01", sha256="717678d1015441349b892bb19efd2b09c5b5f6349dfb25a484bc9101d761b4eb"
-    )
+
+    version("10.06.00.01", sha256="1ea71b17bc2877b3d617d21cd9b95523152e19917ce7ae66f48412398fcbcc59")
+    version("10.04.04", sha256="23f7f222f63cd27bf37b6931a2fc138130b0aed6933a41789b6715de7cbf4b6f")
+    version("09.91.02.01", sha256="c8bf89286de902edbd99224f9064caebc588fc30d6a35e169df716b99c9e54a7")
+    version("09.37.02.01", sha256="717678d1015441349b892bb19efd2b09c5b5f6349dfb25a484bc9101d761b4eb")
     version("09.37.01", sha256="048f3a88ebd66dd8ba6b8fbc536ea68bb58b7b48b3ffaa5ff555a301a838b11d")
     version("09.34.00", sha256="b55ab020b0a3239e0492183d7eb55501102693ee8123ca5ccef0d40a4f11b1d9")
     version("09.33.00", sha256="b61f8a2eb23405d151b69b3ee2d7d76f30ed35da9ff12426e680994cf7a3461a")
@@ -98,6 +100,8 @@ class Icarusalg(CMakePackage):
     depends_on("range-v3", type=("build", "run"))
     depends_on("root", type=("build", "run"))
     depends_on("tbb", type=("build", "run"))
+    depends_on("sqlite", type=("build", "run"))
+    depends_on("sbnobj", type=("build", "run"))
 
     if "SPACKDEV_GENERATOR" in os.environ:
         generator = os.environ["SPACKDEV_GENERATOR"]
@@ -130,6 +134,8 @@ class Icarusalg(CMakePackage):
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
             "-DCPPGSL_INC={0}".format(self.spec["cppgsl"].prefix.include),
+            "-DVDT_INCLUDE_DIR={0}".format(self.spec["vdt"].prefix.include), 
+            "-DVDT_LIBRARY={0}".format(self.spec["vdt"].prefix.lib)
         ]
         return args
 
@@ -171,15 +177,26 @@ class Icarusalg(CMakePackage):
         sanitize_environments(spack_env)
 
     def setup_run_environment(self, run_env):
+        # Binaries.
+        run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
-        for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
-        ):
-            run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
+        #for d in self.spec.traverse(
+        #    root=False,
+        #    cover="nodes",
+        #    order="post",
+        #    deptype=("link"),
+        #    direction="children",
+        #):
+        #    run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
+        #run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
+        #
+        run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
+        # fcls
+        run_env.prepend_path("FHICL_FILE_PATH", self.prefix.fcl)
+
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -194,19 +211,7 @@ class Icarusalg(CMakePackage):
         spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         #
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
+        # fcls
+        spack_env.prepend_path("FHICL_FILE_PATH", self.prefix.fcl)
         # Cleanup.
         sanitize_environments(spack_env)
-
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
-        # Binaries.
-        run_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Ensure Root can find headers for autoparsing.
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        #
-        run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-        # Cleanup.
-        sanitize_environments(run_env)

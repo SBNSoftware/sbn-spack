@@ -1,0 +1,61 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index fbf8eaec..d34b131f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -66,33 +66,35 @@ find_package( nurandom REQUIRED )
+ find_package( nusimdata REQUIRED )
+ find_package( nutools REQUIRED )
+ find_package( nug4 REQUIRED )
+-find_package( sbndaq_artdaq_core REQUIRED )
+-find_package( sbnanaobj REQUIRED )
+-find_package( sbnobj REQUIRED )
+-find_package( sbncode REQUIRED )
+-find_package( larpandora REQUIRED )
++find_package( lardataobj REQUIRED )
++find_package( larrecodnn REQUIRED )
+ find_package( larsim REQUIRED )
+ find_package( lardata REQUIRED )
+-find_package( lardataobj REQUIRED )
+ find_package( lardataalg REQUIRED )
+ find_package( larevt REQUIRED )
+ find_package( larcore REQUIRED )
+ find_package( larcorealg REQUIRED )
+ find_package( larcoreobj REQUIRED )
+ find_package( larreco REQUIRED )
+-find_package( larrecodnn REQUIRED )
++find_package( larpandora REQUIRED )
+ find_package( larana REQUIRED )
++find_package( sbndaq_artdaq_core REQUIRED )
++find_package( sbnanaobj REQUIRED )
++find_package( sbnobj REQUIRED )
++find_package( sbncode REQUIRED )
+ find_package( PostgreSQL REQUIRED )
+ find_package( hep_concurrency REQUIRED )
+ find_package( Eigen3 REQUIRED )
+ find_package( Geant4 REQUIRED )
+ find_package( Boost COMPONENTS system REQUIRED )
+ find_package( ROOT REQUIRED )
++find_package( hep_hpc REQUIRED)
++find_package( hdf5 REQUIRED)
+ 
+-if(DEFINED ENV{HEP_HPC_DIR} )
+-  find_ups_product( hdf5 )
+-  find_ups_product( hep_hpc )
+-endif()
++# if(DEFINED ENV{HEP_HPC_DIR} )
++#   find_ups_product( hdf5 )
++#   find_ups_product( hep_hpc )
++# endif()
+ 
+ # macros for dictionary and simple_plugin
+ include(ArtDictionary)
+diff --git a/test/ci/CMakeLists.txt b/test/ci/CMakeLists.txt
+index 738b9c02..649f9461 100644
+--- a/test/ci/CMakeLists.txt
++++ b/test/ci/CMakeLists.txt
+@@ -51,4 +51,4 @@ install_scripts(AS_TEST)
+ 
+ install_fhicl()
+ 
+-install(FILES fcl_file_checks.list DESTINATION "${sbndcode_UPS_PRODUCT_NAME}/${sbndcode_UPS_PRODUCT_VERSION}/test")
++install(FILES fcl_file_checks.list DESTINATION "$ENV{SBNDCODE_DIR}/sbndcode/test")

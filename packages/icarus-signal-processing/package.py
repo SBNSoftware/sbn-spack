@@ -7,6 +7,7 @@ import os
 
 import spack.util.spack_json as sjson
 from spack import *
+from spack.package import *
 
 
 def sanitize_environments(*args):
@@ -35,6 +36,8 @@ class IcarusSignalProcessing(CMakePackage):
     git_base = "https://github.com/SBNSoftware/icarus_signal_processing.git"
     list_url = "https://api.github/repos/SBNSoftware/icarus_signal_processing/tags"
 
+    version("10.06.00.01", sha256="11d87c100bb00f4e675917d33971a464ea5017e66f5970afcf0cd0cc2ca6e446")
+    version("09.88.00.02", sha256="5fba1ecd9dc454497b3e9235742a4715e3b0fea80f701ae57ed7c5ccd260d0f8")
     version("09.37.01", sha256="a6f09ef0bea681f77061094e5ca9691c8135b7e62e55f7a1b95a5b85f0d6cc57")
     version("09.32.01", sha256="220043d6cee8fd84b37f1cfc0a24e6a8b4b5febbc1cb50a4f56e891eb53d8241")
     version("develop", branch="develop", git=git_base, get_full_repo=True)
@@ -57,6 +60,7 @@ class IcarusSignalProcessing(CMakePackage):
     depends_on("root", type=("build", "run"))
 
     patch("cetmodules2.patch", when="@develop")
+    patch("v09_88_00_02.patch", when="@09.88.00.02")
     patch("v09_32_01.patch", when="@09.32.01")
     patch("v09_37_01.patch", when="@09.37.01")
 
@@ -85,9 +89,19 @@ class IcarusSignalProcessing(CMakePackage):
             )
         )
 
+    def patch(self):
+        print("AAAAA")
+        filter_file('find_package\(FFTW3q REQUIRED EXPORT\)', '', 'CMakeLists.txt')
+        filter_file('find_package\(FFTW3l REQUIRED EXPORT\)', '', 'CMakeLists.txt')
+        filter_file('isnan', 'std::isnan','icarus_signal_processing/WaveformTools.h')
+
     def cmake_args(self):
         # Set CMake args.
-        args = ["-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value)]
+        args = [
+                "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),            
+                "-DVDT_INCLUDE_DIR={0}".format(self.spec["vdt"].prefix.include),
+                "-DVDT_LIBRARY={0}".format(self.spec["vdt"].prefix.lib)
+                ]
         return args
 
     def setup_build_environment(self, spack_env):
@@ -107,6 +121,8 @@ class IcarusSignalProcessing(CMakePackage):
 
     def setup_run_environment(self, run_env):
         # Binaries.
+        run_env.prepend_path("VDT_INCLUDE_DIR", self.spec['vdt'].prefix.include)
+        run_env.prepend_path("VDT_LIBRARY", self.spec['vdt'].prefix.lib)
         run_env.prepend_path("PATH", os.path.join(self.prefix, "bin"))
         # Ensure we can find plugin libraries.
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
@@ -132,15 +148,3 @@ class IcarusSignalProcessing(CMakePackage):
         spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
         sanitize_environments(spack_env)
-
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
-        # Binaries.
-        run_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Ensure Root can find headers for autoparsing.
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        # Cleanup.
-        sanitize_environments(run_env)

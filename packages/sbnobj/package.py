@@ -7,6 +7,7 @@ import os
 import sys
 
 from spack import *
+from spack.package import *
 
 libdir = "%s/var/spack/repos/fnal_art/lib" % os.environ["SPACK_ROOT"]
 if libdir not in sys.path:
@@ -48,6 +49,10 @@ class Sbnobj(CMakePackage):
         git=git_base,
         get_full_repo=True,
     )
+    version("10.01.00", sha256="f0df159da2b94dbd77c61f065d18b3124d44b90aee229fa4ca67c9f3aadbff53") # FIXME
+    version("09.19.05", sha256="2e520d8cf0433790964bbb911e4f7d36cc4b0cc29133c11df838684fdbe195c0")
+    version("09.19.04", sha256="78b7c15159ec33db8beb5105795ff026a5e251dc0a1bbe4845725e1a02633ba1")
+    version("09.19.02", sha256="292e37da8f10549d4cdfbfef4743419d974076b4c0333823c9539faa780414bc")
     version("09.12.12", sha256="60f4f1d437cad1b1573c5f56186a48edbeab1431ccdeb0bcbe8d62fc3c7b21b0")
     version("09.12.09", sha256="4905f82711ac35fcdb732500ce1a33cee83f38a66a116d3d30aeeca749ba1313")
     version("09.12.05", tag="v09_12_05", git=git_base, get_full_repo=True)
@@ -63,6 +68,10 @@ class Sbnobj(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    patch("spack.patch")
+    patch("v09_19_05.patch", when="@09.19.05")
+    patch("v09_19_04.patch", when="@09.19.04")
+    patch("v09_19_02.patch", when="@09.19.02")
     patch("v09_12_12.patch", when="@09.12.12")
     patch("v09_12_09.patch", when="@09.12.09")
     patch("v09_12_05.patch", when="@09.12.05")
@@ -113,6 +122,7 @@ class Sbnobj(CMakePackage):
     depends_on("nutools", type=("build", "run"))
     depends_on("postgresql", type=("build", "run"))
     depends_on("root", type=("build", "run"))
+    depends_on("vdt", type=("build", "run"))
     depends_on("range-v3", type=("build", "run"))
     depends_on("sbndaq-artdaq-core", type=("build", "run"))
     depends_on("sqlite", type=("build", "run"))
@@ -159,7 +169,11 @@ class Sbnobj(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -179,15 +193,3 @@ class Sbnobj(CMakePackage):
         spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
         sanitize_environments(spack_env)
-
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
-        # Binaries.
-        run_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Ensure Root can find headers for autoparsing.
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        # Cleanup.
-        sanitize_environments(run_env)

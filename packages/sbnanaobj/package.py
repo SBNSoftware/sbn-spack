@@ -21,6 +21,7 @@
 # ----------------------------------------------------------------------------
 
 from spack import *
+from spack.package import *
 
 
 class Sbnanaobj(CMakePackage):
@@ -29,6 +30,10 @@ class Sbnanaobj(CMakePackage):
     homepage = "https://www.example.com"
     url = "https://github.com/SBNSoftware/sbnanaobj/archive/refs/tags/v09_17_04.tar.gz"
 
+    version("10.00.04", sha256="7f53cfedfba6e864e438a949ad6c314faf627435f98984786b7713d010579eea") # FIXME
+    version("10.00.00", sha256="268492c6394a8090e1ac93bc5a47abcaac8b808d972d1bb57de25d3887802b28")
+    version("09.23.02.01", sha256="88bf520e81e96311e62487efa4b01baed07e17ed4ab097ed31eaea792db0fea9")
+    version("09.23.02", sha256="be2ea1ab0f6e99e30608b41b851694d7e14e1d30abbd66f18d11956c78700bbf")
     version(
         "09.17.06.06", sha256="e943ca9411282fdd1d3d8b635b706d777722857426488188b39d2bb6c9cd3947"
     )
@@ -47,6 +52,13 @@ class Sbnanaobj(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    variant("ml", default=False,
+        description="Enable features for sbn-ml-cafmaker.",
+    )
+
+    patch("justin_ml.patch", when="+ml")
+    patch("Nate_ml.patch", when="+ml")
+    patch("v09_23_02.patch", when="@09.23.02")
     patch("v09_17_06_06.patch", when="@09.17.06.06")
     patch("v09_17_06_02.patch", when="@09.17.06.02")
     patch("v09_17_06_01.patch", when="@09.17.06.01")
@@ -58,6 +70,12 @@ class Sbnanaobj(CMakePackage):
     depends_on("castxml")
     depends_on("py-pygccxml")
     depends_on("cetmodules", type="build")
+
+    def patch(self):
+        filter_file('/sbnanaobj/sbnanaobj/StandardRecord/','/sbnanaobj/StandardRecord/',
+                    'sbnanaobj/StandardRecord/Flat/CMakeLists.txt')
+        filter_file('/sbnanaobj/sbnanaobj/StandardRecord/','/sbnanaobj/StandardRecord/',
+                     'sbnanaobj/StandardRecord/Proxy/CMakeLists.txt')
 
     def url_for_version(self, version):
         # url = 'https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/{0}.v{1}.tbz2'
