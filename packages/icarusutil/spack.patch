@@ -1,0 +1,315 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5ebba9c..b9c1004 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,8 +36,8 @@ cet_set_compiler_flags(DIAGS CAUTIOUS
+ cet_report_compiler_flags()
+ 
+ # these are minimum required versions, not the actual product versions
+-find_ups_product( art )
+-find_ups_product(art_root_io)
++find_package( art )
++find_package(art_root_io)
+ 
+ 
+ 
+@@ -51,9 +51,6 @@ include(BuildPlugins)
+ # subdirectory for test code
+ # add_subdirectory(test)
+ 
+-# ups - table and config files
+-add_subdirectory(ups)
+-
+ # XML project files.
+ # add_subdirectory(xml)
+ 
+diff --git a/ups/CMakeLists.txt b/ups/CMakeLists.txt
+deleted file mode 100644
+index fe33cc7..0000000
+--- a/ups/CMakeLists.txt
++++ /dev/null
+@@ -1,6 +0,0 @@
+-
+-# create package configuration and version files
+-
+-process_ups_files()
+-
+-cet_cmake_config()
+diff --git a/ups/product-config.cmake.in b/ups/product-config.cmake.in
+deleted file mode 100644
+index 4e22a3b..0000000
+--- a/ups/product-config.cmake.in
++++ /dev/null
+@@ -1,12 +0,0 @@
+-
+-set( @product@_VERSION @cet_dot_version@ )
+-set( @product@_UPS_VERSION @version@ )
+-
+-@PACKAGE_INIT@
+-
+-@CONFIG_FIND_UPS_COMMANDS@
+-
+-@CONFIG_FIND_LIBRARY_COMMANDS@
+-
+-check_required_components(@product@)
+-
+diff --git a/ups/product_deps b/ups/product_deps
+deleted file mode 100644
+index ecea3e9..0000000
+--- a/ups/product_deps
++++ /dev/null
+@@ -1,71 +0,0 @@
+-# This @product_deps@ file defines dependencies for this package.
+-
+-# The *parent* line must the first non-commented line and defines this product and version
+-# The version should be of the form vxx_yy_zz (e.g. v01_02_03)
+-parent icarusutil v09_88_00_02
+-
+-defaultqual e20
+-
+-# These optional lines define the installed directories where headers,
+-# libraries, and executables will be found.
+-# Use them only if your product does not conform to the defaults
+-#
+-# Format: directory_type directory_path directory_name
+-#
+-# The only recognized values of the first field are fcldir, gdmldir, incdir, libdir, and bindir
+-# The only recognized values of the second field are product_dir, fq_dir, and -
+-# The third field is not constrained.
+-#
+-# Defaults:
+-# incdir  product_dir  include
+-# fcldir  product_dir  fcl
+-# libdir  fq_dir       lib
+-# bindir  fq_dir       bin
+-# gdmldir -
+-# fwdir   -
+-#
+-incdir  -
+-fcldir  product_dir    job
+-libdir  product_dir    lib
+-bindir  product_dir    bin
+-
+-# table fragment to set various environment variables.
+-table_fragment_begin
+-    #envSet(GROUP, icarus)
+-    #envSet(JOBSUB_GROUP, icarus)
+-    #envSet(EXPERIMENT, icarus)
+-    #envSet(SAM_EXPERIMENT, icarus)
+-    pathPrepend(PYTHONPATH, ${UPS_PROD_DIR}/bin)
+-    pathPrepend(PYTHONPATH, ${UPS_PROD_DIR}/lib)
+-table_fragment_end
+-
+-# With "product  version" table below, we now define depdendencies
+-# Add the dependent product and version
+-
+-product          version
+-art_root_io     v1_13_06
+-larbatch        v01_59_04
+-pycurl          -		-	optional
+-
+-cetbuildtools	v8_18_04	-	only_for_build
+-end_product_list
+-
+-
+-# We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
+-# Make a table by adding columns before "notes".
+-qualifier		art_root_io         larbatch	   pycurl	notes
+-e20:debug		e20:debug	    -nq-		-nq-
+-e20:prof		e20:prof	    -nq-		-nq-
+-e26:debug		e26:debug	    -nq-		-nq-
+-e26:prof		e26:prof	    -nq-		-nq-
+-c14:debug		c14:debug	    -nq-		-nq-
+-c14:prof	    	c14:prof            -nq-		-nq-
+-c7:debug		c7:debug	    -nq-		-nq-
+-c7:prof		c7:prof		    -nq-		-nq-
+-end_qualifier_list
+-
+-# Preserve tabs and formatting in emacs and vi / vim:
+-
+-### Local Variables:
+-### tab-width: 8
+-### End:
+diff --git a/ups/setup_deps b/ups/setup_deps
+deleted file mode 100644
+index fef67b5..0000000
+--- a/ups/setup_deps
++++ /dev/null
+@@ -1,84 +0,0 @@
+-# NO USER-SERVICEABLE PARTS BELOW.
+-#
+-# There should be as little as possible here,
+-# with most of the heavy lifting done by other small scripts
+-#
+-# When sourcing this file from a script, you may have to tell this
+-# source file where it is via the fw_db shell (or env) variable.
+-# I.e.:
+-#    set fw_db=/some/path; source /some/path/this_file
+-# or  fw_db=/some/path; . /some/path/this_file
+-
+-test $?shell = 1 && set ss=csh || ss=sh
+-#echo Shell type is $ss.
+-
+-# make some things similar. need to use set_ because sh builtin set would hide function set
+-# Note: perhaps the trickiest thing in this file is the sh set_ function tries to return the same status
+-#       as at the start of the function (which most likely is the result of a back-tick expression
+-test "$ss" = csh && alias set_ set && alias vecho_ 'if ($?vv == 1) echo \!*' || eval 'vecho_() { test -n "${vv-}" && echo "$@"; return 0; }'
+-test "$ss" =  sh && eval 'set_() { sts=$?;for xx in "$@";do var=`expr "$xx" : "\([^=]*\)"`;val=`expr "$xx" : "[^=]*=\(.*\)"`;eval "$var=\"$val\"";done;return $sts; }'
+-test "$ss" =  sh && eval 'setenv() { export $1;eval "$1=\"\${2-}\""; }; source() { file=$1; shift; . $file "$@"; }; unsetenv_() { unset "$@"; }'
+-test "$ss" =  sh && eval 'tnotnull() { eval "test -n \"\${$1-}\""; }'                             && eval 'nullout() { "$@" >/dev/null 2>&1; }'
+-test "$ss" = csh && alias tnotnull "eval '"'test $?'"\!* -eq 1' && eval '"'test -n "$'"\!*"'"'"'" && alias nullout "\!* >& /dev/null" && alias unsetenv_ unsetenv
+-test "$ss" = csh && alias return exit
+-
+-set_ msg1='ERROR: You MUST setup ups'
+-test -z $UPS_DIR && ( echo ""; echo "$msg1"; echo "" ) && return
+-
+-set_ msg3='ERROR: You MUST specify either -o, -p, or -d'
+-set_ msg4='Usage: setup_deps <-d|-o|-p> <qualifier list>'
+-test -z "$1" && ( echo ""; echo "$msg4"; echo "$msg3"; echo "" ) && return
+-
+-# make sure we know where this script lives
+-# now if we were passed a path or if not, we can figure it out (maybe if we are interactive)
+-#   bash, zsh, ksh and tcsh pass params to a source file, csh does not. but someone will be writing csh scripts
+-set_ msg2='Please set shell or env. variable fw_db (to be the path to the framework source code). Fix this and other errors may go away.'
+-tnotnull fw_db && set_ db=`sh -c "cd $fw_db >/dev/null 2>&1 && pwd"` && vecho_ 'setting db from fw_db variable' || set_ db=
+-
+-test -z "$db" && tnotnull BASH_SOURCE && set_ me=`dirname $BASH_SOURCE` && set_ db=`sh -c "cd $me >/dev/null 2>&1 && pwd"` && vecho_ 'setting db via BASH_SOURCE'
+-
+-# history is applicable only for interactive t/csh
+-test -z "$db" -a "$ss" = csh && test $?history = 0 && set history=5  # make sure history 1 works
+-test -z "$db" -a "$ss" = csh && set me=`history 1|sed 's/^[ 	0-9:]*//'` && test -n "$me" && set me=`dirname $me[2]` \
+-    && set db=`sh -c "cd $me >/dev/null 2>&1 && pwd"` && vecho_ 'setting db via interactive history'
+-#echo This script lives in $db
+-
+-test -z "$db" && echo "$msg2" || vecho_ "db=$db"
+-test -n "$db" && setenv CETPKG_SOURCE `dirname $db`
+-
+-# make sure we know the current directory
+-set_ myname=`whoami`
+-setenv CETPKG_BUILD /tmp/$myname/setup_deps
+-rm -rf $CETPKG_BUILD
+-mkdir -p $CETPKG_BUILD
+-#echo Build directory is $CETPKG_BUILD
+-
+-echo The source code directory is $CETPKG_SOURCE
+-
+-set_ msg5='ERROR: setup of required products has failed'
+-
+-echo ----------- check this block for errors -----------------------
+-set_ setup_fail="false"
+-set_ cetb=` grep -e '^[ \t]*cetbuildtools' $CETPKG_SOURCE/ups/product_deps | grep  only_for_build| awk '{ print $1 }' `
+-set_ cetv=` grep -e '^[ \t]*cetbuildtools' $CETPKG_SOURCE/ups/product_deps | grep  only_for_build| awk '{ print $2 }' `
+-#echo Found $cetb $cetv
+-setup -B $cetb $cetv
+-test "$?" = 0 || set_ setup_fail="true"
+-setenv UPS_OVERRIDE -B
+-# now get the rest of the products
+-set_ cmd="$CETBUILDTOOLS_DIR/bin/set_dev_products $CETPKG_SOURCE $CETPKG_BUILD $*"
+-#echo Ready to run $cmd
+-source `$cmd`
+-#echo "$cmd returned $setup_fail"
+-test "$setup_fail" = "true" && echo "$msg5"
+-test "$setup_fail" = "true" && return 1
+-test -e "diag_report" && cat diag_report
+-echo ----------------------------------------------------------------
+-
+-# final sanity check and report
+-source $CETBUILDTOOLS_DIR/bin/set_dep_check_report
+-
+-# cleanup before exiting
+-test "$ss" = csh && unalias tnotnull nullout set_ vecho_ return
+-unset ss db me thisdir msg1 msg2 msg3 msg4 msg5 setup_fail
+-unset set_ setenv unsetenv_ tnotnull nullout vecho_
+diff --git a/ups/setup_for_development b/ups/setup_for_development
+deleted file mode 100644
+index 415e9ef..0000000
+--- a/ups/setup_for_development
++++ /dev/null
+@@ -1,87 +0,0 @@
+-# NO USER-SERVICEABLE PARTS BELOW.
+-#
+-# There should be as little as possible here,
+-# with most of the heavy lifting done by other small scripts
+-#
+-# When sourcing this file from a script, you may have to tell this
+-# source file where it is via the fw_db shell (or env) variable.
+-# I.e.:
+-#    set fw_db=/some/path; source /some/path/this_file
+-# or  fw_db=/some/path; . /some/path/this_file
+-
+-test $?shell = 1 && set ss=csh || ss=sh
+-#echo Shell type is $ss.
+-
+-# make some things similar. need to use set_ because sh builtin set would hide function set
+-# Note: perhaps the trickiest thing in this file is the sh set_ function tries to return the same status
+-#       as at the start of the function (which most likely is the result of a back-tick expression
+-test "$ss" = csh && alias set_ set && alias vecho_ 'if ($?vv == 1) echo \!*' || eval 'vecho_() { test -n "${vv-}" && echo "$@"; return 0; }'
+-test "$ss" =  sh && eval 'set_() { sts=$?;for xx in "$@";do var=`expr "$xx" : "\([^=]*\)"`;val=`expr "$xx" : "[^=]*=\(.*\)"`;eval "$var=\"$val\"";done;return $sts; }'
+-test "$ss" =  sh && eval 'setenv() { export $1;eval "$1=\"\${2-}\""; }; source() { file=$1; shift; . $file "$@"; }; unsetenv_() { unset "$@"; }'
+-test "$ss" =  sh && eval 'tnotnull() { eval "test -n \"\${$1-}\""; }'                             && eval 'nullout() { "$@" >/dev/null 2>&1; }'
+-test "$ss" = csh && alias tnotnull "eval '"'test $?'"\!* -eq 1' && eval '"'test -n "$'"\!*"'"'"'" && alias nullout "\!* >& /dev/null" && alias unsetenv_ unsetenv
+-test "$ss" = csh && alias return exit
+-
+-set_ msg1='ERROR: You MUST setup ups'
+-test -z $UPS_DIR && ( echo ""; echo "$msg1"; echo "" ) && return
+-
+-set_ msg3='ERROR: You MUST specify either -o, -p, or -d'
+-set_ msg4='Usage: setup_for_development <-d|-o|-p> <qualifier list>'
+-test -z "$1" && ( echo ""; echo "$msg4"; echo "$msg3"; echo "" ) && return
+-
+-# make sure we know where this script lives
+-# now if we were passed a path or if not, we can figure it out (maybe if we are interactive)
+-#   bash, zsh, ksh and tcsh pass params to a source file, csh does not. but someone will be writing csh scripts
+-set_ msg2='Please set shell or env. variable fw_db (to be the path to the framework source code). Fix this and other errors may go away.'
+-tnotnull fw_db && set_ db=`sh -c "cd $fw_db >/dev/null 2>&1 && pwd"` && vecho_ 'setting db from fw_db variable' || set_ db=
+-
+-test -z "$db" && tnotnull BASH_SOURCE && set_ me=`dirname $BASH_SOURCE` && set_ db=`sh -c "cd $me >/dev/null 2>&1 && pwd"` && vecho_ 'setting db via BASH_SOURCE'
+-
+-# history is applicable only for interactive t/csh
+-test -z "$db" -a "$ss" = csh && test $?history = 0 && set history=5  # make sure history 1 works
+-test -z "$db" -a "$ss" = csh && set me=`history 1|sed 's/^[ 	0-9:]*//'` && test -n "$me" && set me=`dirname $me[2]` \
+-    && set db=`sh -c "cd $me >/dev/null 2>&1 && pwd"` && vecho_ 'setting db via interactive history'
+-#echo This script lives in $db
+-
+-test -z "$db" && echo "$msg2" || vecho_ "db=$db"
+-test -n "$db" && setenv CETPKG_SOURCE `dirname $db`
+-
+-# make sure we know the current directory
+-setenv CETPKG_BUILD `pwd`
+-#echo Build directory is $CETPKG_BUILD
+-
+-echo The working build directory is $CETPKG_BUILD
+-echo The source code directory is $CETPKG_SOURCE
+-
+-set_ msg5='ERROR: setup of required products has failed'
+-
+-echo ----------- check this block for errors -----------------------
+-set_ setup_fail="false"
+-set_ cetb=` grep -e '^[ \t]*cetbuildtools' $CETPKG_SOURCE/ups/product_deps | grep  only_for_build| awk '{ print $1 }' `
+-set_ cetv=` grep -e '^[ \t]*cetbuildtools' $CETPKG_SOURCE/ups/product_deps | grep  only_for_build| awk '{ print $2 }' `
+-#echo Found $cetb $cetv
+-setup -B $cetb $cetv
+-test "$?" = 0 || set_ setup_fail="true"
+-setenv UPS_OVERRIDE -B
+-# now get the rest of the products
+-set_ cmd="$CETBUILDTOOLS_DIR/bin/set_dev_products $CETPKG_SOURCE $CETPKG_BUILD $*"
+-#echo Ready to run $cmd
+-source `$cmd`
+-#echo "$cmd returned $setup_fail"
+-test "$setup_fail" = "true" && echo "$msg5"
+-test "$setup_fail" = "true" && return 1
+-test -e "$CETPKG_BUILD/diag_report" && cat $CETPKG_BUILD/diag_report
+-echo ----------------------------------------------------------------
+-
+-# add lib to LD_LIBRARY_PATH
+-source $CETBUILDTOOLS_DIR/bin/set_dev_lib
+-# add bin to path
+-source $CETBUILDTOOLS_DIR/bin/set_dev_bin
+-
+-# final sanity check and report
+-source $CETBUILDTOOLS_DIR/bin/set_dev_check_report
+-
+-# cleanup before exiting
+-test "$ss" = csh && unalias tnotnull nullout set_ vecho_ return
+-unset ss db me thisdir msg1 msg2 msg3 msg4 msg5 setup_fail
+-unset set_ setenv unsetenv_ tnotnull nullout vecho_

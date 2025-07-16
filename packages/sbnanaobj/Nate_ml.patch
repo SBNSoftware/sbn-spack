@@ -1,0 +1,58 @@
+diff --git a/sbnanaobj/StandardRecord/SRParticleDLP.cxx b/sbnanaobj/StandardRecord/SRParticleDLP.cxx
+--- a/sbnanaobj/StandardRecord/SRParticleDLP.cxx
++++ b/sbnanaobj/StandardRecord/SRParticleDLP.cxx
+@@ -48,6 +48,7 @@ namespace caf
+         ppn_ids(),
+         primary_scores(),
+         shape((int64_t)-1),
++	shower_split_angle(std::numeric_limits<double>::signaling_NaN()),
+         size(std::numeric_limits<int64_t>::signaling_NaN()),
+         start_dedx(std::numeric_limits<double>::signaling_NaN()),
+         start_dir{std::numeric_limits<float>::signaling_NaN(), std::numeric_limits<float>::signaling_NaN(), std::numeric_limits<float>::signaling_NaN()},
+diff --git a/sbnanaobj/StandardRecord/SRParticleDLP.h b/sbnanaobj/StandardRecord/SRParticleDLP.h
+--- a/sbnanaobj/StandardRecord/SRParticleDLP.h
++++ b/sbnanaobj/StandardRecord/SRParticleDLP.h
+@@ -65,6 +65,7 @@ namespace caf
+         std::vector<int32_t> ppn_ids;                       //!< PPN IDs of the particle.
+ 	    float primary_scores[2];                            //!< Primary softmax scores
+         int64_t shape;                                      //!< Semantic type of the particle (see Shape_t enumeration).
++	double shower_split_angle;			    //!< Added by Nate Rowe
+         int64_t size;                                       //!< TO DO.
+         double start_dedx;                                 //!< dE/dx at the start of the particle.
+         float start_dir[3];                                 //!< Unit direction vector calculated at the particle start point.
+diff --git a/sbnanaobj/StandardRecord/SRParticleTruthDLP.cxx b/sbnanaobj/StandardRecord/SRParticleTruthDLP.cxx
+--- a/sbnanaobj/StandardRecord/SRParticleTruthDLP.cxx
++++ b/sbnanaobj/StandardRecord/SRParticleTruthDLP.cxx
+@@ -37,6 +37,7 @@ namespace caf
+         energy_init(std::numeric_limits<double>::signaling_NaN()),
+         first_step{std::numeric_limits<float>::signaling_NaN(), std::numeric_limits<float>::signaling_NaN(), std::numeric_limits<float>::signaling_NaN()},
+         fragment_ids(std::vector<int32_t>()),
++	gen_id(std::numeric_limits<int64_t>::signaling_NaN()),
+         group_id(std::numeric_limits<int64_t>::signaling_NaN()),
+         group_primary(std::numeric_limits<int64_t>::signaling_NaN()),
+         id(std::numeric_limits<int64_t>::signaling_NaN()),
+@@ -94,4 +95,4 @@ namespace caf
+         units() { }
+ 
+     SRParticleTruthDLP::~SRParticleTruthDLP() { }
+-} // namespace caf
+\ No newline at end of file
++} // namespace caf
+diff --git a/sbnanaobj/StandardRecord/SRParticleTruthDLP.h b/sbnanaobj/StandardRecord/SRParticleTruthDLP.h
+--- a/sbnanaobj/StandardRecord/SRParticleTruthDLP.h
++++ b/sbnanaobj/StandardRecord/SRParticleTruthDLP.h
+@@ -57,6 +57,7 @@ namespace caf
+         double energy_init;                            //!< Initial energy of the particle. 
+         float first_step[3];                           //!< Coordinates of the first step of the particle.
+         std::vector<int32_t> fragment_ids;             //!< Fragment IDs comprising the particle.
++	int64_t gen_id;				       //!< Added by Nate Rowe
+         int64_t group_id;                              //!< Group ID of the particle.
+         int64_t group_primary;                         //!< Whether the particle is a primary within its group.
+         int64_t id;                                    //!< Particle ID.
+@@ -114,4 +115,4 @@ namespace caf
+         std::string units;                             //!< Units in which the position coordinates are expressed.
+     };
+ } // namespace caf
+-#endif // SRPARTICLETRUTHDLP_H
+\ No newline at end of file
++#endif // SRPARTICLETRUTHDLP_H

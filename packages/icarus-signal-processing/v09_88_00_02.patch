@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d440848..cf9a3b3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -39,8 +39,6 @@ include(CetMake)
+ 
+ find_package(FFTW3f REQUIRED EXPORT)
+ find_package(FFTW3 REQUIRED EXPORT)
+-find_package(FFTW3q REQUIRED EXPORT)
+-find_package(FFTW3l REQUIRED EXPORT)
+ 
+ 
+ 
+diff --git a/icarus_signal_processing/WaveformTools.h b/icarus_signal_processing/WaveformTools.h
+index 6eb5b64..3fb0509 100644
+--- a/icarus_signal_processing/WaveformTools.h
++++ b/icarus_signal_processing/WaveformTools.h
+@@ -341,7 +341,7 @@ template <typename T> inline void WaveformTools<T>::getTruncatedMean(const std::
+         {
+             T val = waveform[waveIdx];
+ 
+-            if (isnan(val))
++            if (std::isnan(val))
+             {
+                 std::cout << "getTruncatedMean finds nan for waveform val! waveform size: " << waveform.size() << ", idx:" << waveIdx << " --> Skipping" << std::endl;
+                 continue;
