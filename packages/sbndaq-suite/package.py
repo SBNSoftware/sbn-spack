@@ -118,6 +118,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq-core@v1_10_08")
         depends_on("sbndaq-artdaq@v1_10_08")
         depends_on("sbndaq@v1_10_08")
+        depends_on("artdaq-runcontrol-gui@v1_03_06")
 
     with when("@v1_10_07"):
         depends_on("artdaq-suite@v3_13_02")
