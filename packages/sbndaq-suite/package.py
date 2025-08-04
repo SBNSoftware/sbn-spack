@@ -108,9 +108,10 @@ class SbndaqSuite(BundlePackage):
 
 ##insert-here
     with when("@v1_10_09"):
-        depends_on("artdaq-suite@v3_13_00")
+        depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
+        depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
         #
-        depends_on("caenvmelib@4.0.1")
+        depends_on("caenvmelib@4.0.2")
         depends_on("caencomm@1.7.0")
         depends_on("caendigitizer@2.17.3")
         #
@@ -119,6 +120,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_10_09")
         depends_on("sbndaq@v1_10_09")
         depends_on("artdaq-runcontrol-gui@v1_03_06")
+        depends_on("windriver@v16_04_00")
 
     with when("@v1_10_08"):
         depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
@@ -133,6 +135,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_10_08")
         depends_on("sbndaq@v1_10_08")
         depends_on("artdaq-runcontrol-gui@v1_03_06")
+        depends_on("windriver@v12_06_00")
 
     with when("@v1_10_07"):
         depends_on("artdaq-suite@v3_13_02")

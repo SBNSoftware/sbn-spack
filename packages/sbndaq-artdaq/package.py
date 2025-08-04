@@ -67,7 +67,7 @@ class SbndaqArtdaq(CMakePackage):
     depends_on("cppzmq")
     depends_on("jsoncpp")
     depends_on("wibtools", when="+sbnd")
-    depends_on("windriver@v12_06_00", when="+sbnd")
+    depends_on("windriver", when="+sbnd")
     depends_on("redis")
     depends_on("hiredis")
     depends_on("cetmodules", type="build")
