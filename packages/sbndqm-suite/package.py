@@ -28,7 +28,7 @@ class SbndqmSuite(BundlePackage):
 
     # Dependencies for v1_04_00 release
     with when("@v1_04_00"):
-        depends_on("sbndqm@release/v1_04_00") ## not tagged yet, point to branch
+        depends_on("sbndqm@v1_04_00") 
         depends_on("sbndaq-online@v1_01_00")
         depends_on("sbndcode@v10_06_00_01", type="run", when="+sbnd")
         depends_on("icaruscode@v10_06_00_01p01", type="run", when="+icarus")
