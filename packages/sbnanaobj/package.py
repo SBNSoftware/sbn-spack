@@ -20,13 +20,9 @@
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
-<<<<<<< HEAD
-from spack import *
-=======
 import os
 import sys
 
->>>>>>> sbndaq/v1.0.0.sbnd-dev0-a
 from spack.package import *
 
 

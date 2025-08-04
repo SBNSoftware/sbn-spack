@@ -6,7 +6,7 @@
 import os
 import sys
 
-from spack import *
+from spack.package import *
 
 class SbndqmSuite(BundlePackage):
     """The sbndqm suite; sbndqm is a repository for online data quality monitoring in SBN"""
