@@ -15,21 +15,20 @@ class ArtdaqRuncontrolGui(CMakePackage):
     git_base = "https://github.com/SBNSoftware/artdaq-runcontrol-gui.git"
     list_url = "https://api.github.com/repos/SBNSoftware/artdaq-runcontrol-gui/tags"
 
+    version("master", git=git_base, branch="master", get_full_repo=True)
     version("develop", git=git_base, branch="develop", get_full_repo=True)
 
-    version(
-        "v1_03_05",
-        sha256="3c5dceeebd4cec1d81a8c2af460db89ae8f927c979ae0512c83c7267c283f82f",
-    )
-    version(
-        "v1_03_04",
-        sha256="57273320a95de6abacf4a853b53507710bb505a3e33dd09b74e3fd1b0e2e94ea",
-    )
+    version("v1_03_06",sha256="4eb76ffecbf016aa22237a6729a4cac7ebc4a3ddd241a2d70eeaeba344357a60",)
+    version("v1_03_05",sha256="3c5dceeebd4cec1d81a8c2af460db89ae8f927c979ae0512c83c7267c283f82f",)
+    version("v1_03_04",sha256="57273320a95de6abacf4a853b53507710bb505a3e33dd09b74e3fd1b0e2e94ea",)
 
     depends_on("cetmodules", type="build")
     depends_on("qt@5.15:")
     depends_on("xmlrpc-c")
 
+    patch("patch/master.patch", when="@master")
+    patch("patch/develop.patch", when="@develop")
+    patch("patch/v1_03_06.patch", when="@v1_03_06")
     patch("patch/v1_03_05.patch", when="@v1_03_05")
 
     def url_for_version(self, version):

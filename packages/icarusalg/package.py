@@ -4,11 +4,10 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import sys
 
-import spack.util.spack_json as sjson
-from spack import *
 from spack.package import *
-
+import spack.util.spack_json as sjson
 
 def sanitize_environments(*args):
     for env in args:
