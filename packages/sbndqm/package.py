@@ -23,7 +23,6 @@ class Sbndqm(CMakePackage):
     depends_on("sbndaq-online")
     depends_on("sbndaq-artdaq-core")
     depends_on("sbncode")
-    depends_on("fhicl-py")
     depends_on("fftw")
     depends_on("cetmodules", type="build")
 
