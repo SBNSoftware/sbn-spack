@@ -11,7 +11,7 @@ class Windriver(Package):
 
     homepage = "https://jungo.com/windriver/"
 
-    version("v16_04_00", sha256="85baab8f278882cb0bbff76983e0cc5f8966a32ce539ab3b96093ab0d0ddcc26")
+    version("v16_04_00", sha256="9404791ca28a3b00154632081e946951af58c85a207e9ab67cdc2b1e299c0240")
     version("v12_06_00", sha256="ac8098822dbc0290a49c79d9f59c7552ad4410ca4e4880eb2e90bf2ade6c8720")
 
     def url_for_version(self, version):
