@@ -13,11 +13,29 @@ class SbndqmSuite(BundlePackage):
 
     homepage="https://sbnsoftware.github.io/"
 
+    squals = ("128","131","132")
+
     version("develop")
     version("v1_04_00")
 
     variant("sbnd", default=True, description="Enable SBND-specific runtime code")
     variant("icarus", default=True, description="Enable ICARUS-specific runtime code")
+
+    variant(
+        "cxxstd",
+        default="17",
+        values=("17", "20"),
+        multi=False,
+        description="Use the specified C++ standard when building.",
+    )
+
+    variant(
+        "s",
+        default="0",
+        values=("0",) + squals,
+        multi=False,
+        description="Artdaq suite version to use",
+    )
 
      # Dependencies for development head
     with when("@develop"):
