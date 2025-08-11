@@ -14,17 +14,44 @@ class Sbndqm(CMakePackage):
     """Main Data Quality Monitoring (DQM) package for SBN"""
 
     homepage = "https://sbnsoftware.github.io/"
-    url = "https://github.com/SBNSoftware/sbndqm/archive/refs/tags/v1_03_00.tar.gz"
-    git = "https://github.com/SBNSoftware/sbncode.git"
+    git_base = "https://github.com/SBNSoftware/sbndqm.git"
+    list_url = "https://api.github.com/repos/SBNSoftware/sbndqm/tags"
+    url      = "https://github.com/SBNSoftware/sbndqm"
 
-    version("1_03_00", sha256="06180aa009f8dde8f4864d7456170c0a6ddae9ec9c5b28881495a629a887cc81")
-    version("1_04_00")
+    squals = ("128","131","132")
 
-    depends_on("sbndaq-online")
-    depends_on("sbndaq-artdaq-core")
-    depends_on("sbncode")
+    version("develop", git=git_base, branch="develop", get_full_repo=True)
+    version("v1_04_00", git=git_base, tag="v1_04_00", get_full_repo=True)
+
+    variant(
+        "cxxstd",
+        default="17",
+        values=("14", "17", "20"),
+        multi=False,
+        description="Use the specified C++ standard when building.",
+    )
+
+    variant(
+        "s",
+        default="0",
+        values=("0",) + squals,
+        multi=False,
+        description="Artdaq suite version to use",
+    )
+
+    with when("@develop"):
+        depends_on("sbndaq-online@v1_01_00")
+        depends_on("sbndaq-artdaq-core@v1_10_06")
+        depends_on("sbncode@v10_06_00_01")
+
+    with when("@v1_04_00"):
+        depends_on("sbndaq-online@v1_01_00")
+        depends_on("sbndaq-artdaq-core@v1_10_06")
+        depends_on("sbncode@v10_06_00_01")
+
     depends_on("fftw")
     depends_on("cetmodules", type="build")
+
 
     def url_for_version(self, version):
         url = "https://github.com/SBNSoftware/{0}/archive/v{1}.tar.gz"
