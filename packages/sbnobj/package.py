@@ -68,13 +68,13 @@ class Sbnobj(CMakePackage):
     )
 
     patch("spack.patch")
-    patch("v09_19_05.patch", when="@09.19.05")
-    patch("v09_19_04.patch", when="@09.19.04")
-    patch("v09_19_02.patch", when="@09.19.02")
-    patch("v09_12_12.patch", when="@09.12.12")
-    patch("v09_12_09.patch", when="@09.12.09")
-    patch("v09_12_05.patch", when="@09.12.05")
-    patch("v09_12_04.patch", when="@09.12.04")
+    #patch("v09_19_05.patch", when="@09.19.05")
+    #patch("v09_19_04.patch", when="@09.19.04")
+    #patch("v09_19_02.patch", when="@09.19.02")
+    #patch("v09_12_12.patch", when="@09.12.12")
+    #patch("v09_12_09.patch", when="@09.12.09")
+    #patch("v09_12_05.patch", when="@09.12.05")
+    #patch("v09_12_04.patch", when="@09.12.04")
     patch("cetmodules2.patch", when="@develop")
 
     # Build-only dependencies.

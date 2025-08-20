@@ -82,7 +82,6 @@ class Sbncode(CMakePackage):
     depends_on("artdaq-core")
     depends_on("art-root-io")
     depends_on("art")
-    depends_on("artdaq-core")
     depends_on("boost")
     depends_on("canvas-root-io")
     depends_on("canvas")
@@ -106,6 +105,7 @@ class Sbncode(CMakePackage):
     depends_on("larevt")
     depends_on("larrecodnn")# added -> should inherit py-tensorflow from this!
     depends_on("larsoft")# added
+    depends_on("larsoft@10.06.00", when="@v10_06_00_01")
     depends_on("larsoft@09.91.02", when="@09.91.02.01")# added
     depends_on("larg4")# added
     depends_on("pandora")
@@ -121,6 +121,7 @@ class Sbncode(CMakePackage):
     depends_on("nug4")
     depends_on("nugen")
     depends_on("genie")
+    depends_on("genie-xsec") # added, pulled from fnal_art
     depends_on("ifdhc")
     depends_on("ifbeam")
     depends_on("libxml2")
@@ -133,6 +134,7 @@ class Sbncode(CMakePackage):
     depends_on("sbnobj@09.19.04", when="@09.91.02.01")
     depends_on("sbnanaobj")
     depends_on("sbndaq-artdaq-core")
+    depends_on("sbndaq-artdaq-core@v1_10_06", when="@v10_06_00_01")
     depends_on("sqlite")
     depends_on("trace")
     depends_on("dk2nudata")
@@ -143,6 +145,7 @@ class Sbncode(CMakePackage):
 
     # depends_on("py-larcv")
     depends_on("larcv2")
+    depends_on("systematicstools")
     depends_on("nusystematics")
     depends_on("protobuf")
     depends_on("nusimdata")
