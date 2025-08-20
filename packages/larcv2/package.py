@@ -77,10 +77,12 @@ class Larcv2(MakefilePackage):
     def build(self, spec, prefix):
         os.system('cp -r '+self.stage.path+'/spack-src/* '+prefix)
         os.chdir(prefix)
+        # wait for cp to finish
         sleep(120)
         make()
         
     def install(self, spec, prefix):
+        # clean up prefix area
         os.system('rm '+prefix+'/spack-*.txt')
         os.system('rm -rf '+prefix+'/Makefile')
 
