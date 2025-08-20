@@ -20,10 +20,10 @@
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
-import os
-import sys
-
 from spack.package import *
+from spack.util.environment import EnvironmentModifications
+import os
+import platform
 from time import sleep
 
 class Larcv2(MakefilePackage):
@@ -41,6 +41,7 @@ class Larcv2(MakefilePackage):
     depends_on("python", type=("build", "run"))
 
     phases = ['build', 'install']
+    #patch('spack.patch')
 
     def setup_build_environment(self, env):
         py_config = self.spec['python'].prefix.bin+"/python3-config" 
@@ -72,17 +73,17 @@ class Larcv2(MakefilePackage):
         env.prepend_path("PATH", self.prefix+"/bin")
         env.prepend_path("LD_LIBRARY_PATH", self.prefix+"/build/lib")
         env.prepend_path("PYTHONPATH", self.prefix+"/python")
-        env.set("LARCV_CXX", "clang++")
+        env.set("LARCV_CXX", "g++")# was clang++ before
 
     def build(self, spec, prefix):
         os.system('cp -r '+self.stage.path+'/spack-src/* '+prefix)
         os.chdir(prefix)
-        # wait for cp to finish
         sleep(120)
         make()
         
     def install(self, spec, prefix):
-        # clean up prefix area
+        os.system('cp -r '+prefix+' /home/nathanielerowe/larcv_spack_tests/spack_out/')
+        #install_tree(self.stage.path+"/baddir", prefix)
         os.system('rm '+prefix+'/spack-*.txt')
         os.system('rm -rf '+prefix+'/Makefile')
 
@@ -110,4 +111,4 @@ class Larcv2(MakefilePackage):
         env.prepend_path("PATH", self.prefix+"/bin")
         env.prepend_path("LD_LIBRARY_PATH", self.prefix+"/build/lib")
         env.prepend_path("PYTHONPATH", self.prefix+"/python")
-        env.set("LARCV_CXX", "clang++")
+        env.set("LARCV_CXX", "g++")# was clang++ before
