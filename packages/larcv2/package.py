@@ -20,8 +20,10 @@
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
-from spack import *
 import os
+import sys
+
+from spack.package import *
 from time import sleep
 
 class Larcv2(MakefilePackage):
