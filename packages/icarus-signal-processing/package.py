@@ -58,6 +58,7 @@ class IcarusSignalProcessing(CMakePackage):
     # Build and link dependencies.
     depends_on("fftw", type=("build", "run"))
     depends_on("root", type=("build", "run"))
+    depends_on("eigen", type=("build", "run"))
 
     patch("cetmodules2.patch", when="@develop")
     patch("v09_88_00_02.patch", when="@09.88.00.02")

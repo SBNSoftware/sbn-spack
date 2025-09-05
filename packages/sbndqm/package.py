@@ -23,6 +23,8 @@ class Sbndqm(CMakePackage):
     version("develop", git=git_base, branch="develop", get_full_repo=True)
     version("v1_04_00", git=git_base, tag="v1_04_00", get_full_repo=True)
 
+    patch('artdaq-utilities.patch', when='@:')
+
     variant(
         "cxxstd",
         default="17",
@@ -49,6 +51,7 @@ class Sbndqm(CMakePackage):
         depends_on("sbndaq-artdaq-core@v1_10_06")
         depends_on("sbncode@v10_06_00_01")
 
+    depends_on("artdaq-utilities")
     depends_on("fftw")
     depends_on("cetmodules", type="build")
 
@@ -58,28 +61,19 @@ class Sbndqm(CMakePackage):
         print("url for version: ", url.format(self.name, version.underscored))
         return url.format(self.name, version.underscored)
 
-    def fetch_remote_versions(self, concurrency=None):
-        return dict(
-            map(
-                lambda v: (v.dotted, self.url_for_version(v)),
-                [
-                    Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
-                    if d["name"].startswith("v")
-                ],
-            )
-        )
-    
     def cmake_args(self):
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DSPACK_BUILD=1"
+            "-DSPACK_BUILD=1",
+            "-Dsbndqm_FW_DIR=fw"
         ]
         return args
+
+    def setup_build_environment(self, env):
+        # Ensure we can find plugin libraries.
+        env.prepend_path("CMAKE_PREFIX_PATH", self.spec['sbndaq-online'].prefix)
+        env.prepend_path("CMAKE_PREFIX_PATH", self.spec['artdaq-utilities'].prefix)
+        # Ensure we can find fhicl files
 
     def setup_run_environment(self, env):
         prefix = self.prefix
