@@ -24,6 +24,9 @@ class SbndaqOnline(CMakePackage):
     version("develop", git=git_base, branch="develop", get_full_repo=True)
     version("v1_01_00", git=git_base, tag="v1_01_00", get_full_repo=True)
 
+    patch('spack_build.patch', when='@develop')
+    patch('spack_build.patch', when='@v1_01_00')
+
     variant(
         "cxxstd",
         default="17",
@@ -31,6 +34,8 @@ class SbndaqOnline(CMakePackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
+
+    depends_on('jsoncpp')
 
     with when("@develop"):
         depends_on("artdaq@v3_13_02")
@@ -44,26 +49,10 @@ class SbndaqOnline(CMakePackage):
         url = "https://github.com/SBNSoftware/{0}/archive/refs/tags/{1}.tar.gz"
         return url.format(self.name, version.underscored)
 
-    def fetch_remote_versions(self, concurrency=None):
-        return dict(
-            map(
-                lambda v: (v.dotted, self.url_for_version(v)),
-                [
-                    Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
-                    if d["name"].startswith("v")
-                ],
-            )
-        )
-    
     def cmake_args(self):
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-            "-DSPACK_BUILD=1"
+            "-DWANT_UPS:BOOL=OFF"
         ]
         return args
 
