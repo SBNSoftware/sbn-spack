@@ -53,6 +53,7 @@ class Sbndqm(CMakePackage):
 
     depends_on("artdaq-utilities")
     depends_on("fftw")
+    depends_on("py-fhicl-py")
     depends_on("cetmodules", type="build")
 
 
