@@ -128,7 +128,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@v1_11_00")
         depends_on("sbndaq@v1_11_00")
         depends_on("artdaq-runcontrol-gui@v1_03_06")
-        depends_on("windriver@v16_04_00")
+        depends_on("windriver@v16_05_00")
 
     with when("@v1_10_09"):
         depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
