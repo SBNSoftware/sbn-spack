@@ -11,7 +11,7 @@ class Windriver(Package):
 
     homepage = "https://jungo.com/windriver/"
 
-    version("v16_05_00", sha256="827a6645f7e132136ddd057f52d71d4adfba2fcd34d27bf21e81f9547e797485")
+    version("v16_05_00", sha256="c5b06e494d9ce394fbbb0d403a0763460d47c9a3de3fa228d39a86e344fdd0c6")
     version("v16_04_00", sha256="827a6645f7e132136ddd057f52d71d4adfba2fcd34d27bf21e81f9547e797485")
     version("v12_06_00", sha256="ac8098822dbc0290a49c79d9f59c7552ad4410ca4e4880eb2e90bf2ade6c8720")
 
