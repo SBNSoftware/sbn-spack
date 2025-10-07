@@ -111,7 +111,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("sbndaq-artdaq@develop")
         depends_on("sbndaq@develop")
         depends_on("artdaq-runcontrol-gui@develop")
-        depends_on("windriver@v12_06_00")
+        depends_on("windriver@v16_05_00")
 
 ##insert-here
 
