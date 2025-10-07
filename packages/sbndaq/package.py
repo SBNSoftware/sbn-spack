@@ -23,7 +23,7 @@ class Sbndaq(CMakePackage):
     git_base = "https://github.com/SBNSoftware/sbndaq.git"
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq/tags"
 
-    version("v1_11_00", sha256="2f0272b3c6f078f887e6692504ed461e08343bf51c8b9246184de34d289dfedc")
+    version("v1_11_00", sha256="0b61c55b0d4886ede8e09a92d04c3302eca31432da425011078c5282f42ed77b")
     version("v1_10_09", sha256="aa7bc8c9cda75cc34117ae9a12d5574ae320bed6fc96ae54bb62caa1c805d74b")
     version("v1_10_08", sha256="3471251bc16f3277b982cb5f5051040c5be468915bf3a97097f5913274e2ca12")
     version("v1_10_07", sha256="e22af191efad5e94e57c9fa84c98f372f125a210a0289186ab265ecc6fc4eb32")
