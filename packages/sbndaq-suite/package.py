@@ -65,7 +65,7 @@ class SbndaqSuite(BundlePackage):
     depends_on("gdb@14.2+tui+source-highlight+ld+lto+quad", when="+gdb")
     depends_on("binutils@2.43.1+gas")
 
-    depends_on("windriver@v16_04_00", when="@v1_11_00:")
+    #depends_on("windriver@v16_05_00", when="@v1_11_00:")
     depends_on("windriver@v12_06_00", when="@:v1_10_08")
 
     with when("@migration_artdaqv4_01_00"):
@@ -115,7 +115,7 @@ class SbndaqSuite(BundlePackage):
 
 ##insert-here
 
-    with when("@v1_11_0"):
+    with when("@v1_11_00"):
         depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
         depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
         #
