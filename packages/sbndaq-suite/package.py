@@ -16,7 +16,7 @@ class SbndaqSuite(BundlePackage):
     squals = ("128","131","132")
 
 
-    version("v1_11_00")
+    version("v2_00_00")
     version("v1_10_09")
     version("v1_10_08")
     version("v1_10_07")
@@ -65,8 +65,8 @@ class SbndaqSuite(BundlePackage):
     depends_on("gdb@14.2+tui+source-highlight+ld+lto+quad", when="+gdb")
     depends_on("binutils@2.43.1+gas")
 
-    depends_on("windriver@v16_04_00", when="@v1_11_00:")
-    depends_on("windriver@v12_06_00", when="@:v1_10_08")
+    depends_on("windriver@v16_05_00", when="@v2_01_00:")
+    depends_on("windriver@v12_06_00", when="@:v2_00_00")
 
     with when("@migration_artdaqv4_01_00"):
         depends_on("artdaq-suite@v4_01_00 cxxstd=17", when="cxxstd=17")
@@ -114,8 +114,7 @@ class SbndaqSuite(BundlePackage):
         depends_on("windriver@v12_06_00")
 
 ##insert-here
-
-    with when("@v1_11_0"):
+    with when("@v2_00_00"):
         depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
         depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
         #
@@ -123,12 +122,12 @@ class SbndaqSuite(BundlePackage):
         depends_on("caencomm@1.7.0")
         depends_on("caendigitizer@2.17.3")
         #
-        depends_on("wibtools@v1_11_00")
-        depends_on("sbndaq-artdaq-core@v1_11_00")
-        depends_on("sbndaq-artdaq@v1_11_00")
-        depends_on("sbndaq@v1_11_00")
+        depends_on("wibtools@v2_00_00")
+        depends_on("sbndaq-artdaq-core@v2_00_00")
+        depends_on("sbndaq-artdaq@v2_00_00")
+        depends_on("sbndaq@v2_00_00")
         depends_on("artdaq-runcontrol-gui@v1_03_06")
-        depends_on("windriver@v16_04_00")
+        depends_on("windriver@v12_06_00")
 
     with when("@v1_10_09"):
         depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
