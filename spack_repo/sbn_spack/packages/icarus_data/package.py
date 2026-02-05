@@ -1,8 +1,7 @@
-import os
-import sys
 import glob
 
 from spack.package import *
+from spack_repo.builtin.build_systems.generic import Package
 
 
 class IcarusData(Package):
@@ -10,15 +9,6 @@ class IcarusData(Package):
 
     homepage = "https://icarus.fnal.gov/"
 
-    version("09.93.06",
-        sha256="4f4925cec724d5beec699fdfb13d511fa80dae52ad6be581e17ff415d2fc5c43",
-        url="https://scisoft.fnal.gov/scisoft/packages/icarus_data/v09_93_06/icarus_data-09.93.06-noarch.tar.bz2",
-        )
-    version(
-        "09.93.05",
-        sha256="2cd66f3e36aa95496c47b790a9dd1e53eb2712b075d7c81aa75e334cc9f4acaf",
-        url="https://scisoft.fnal.gov/scisoft/packages/icarus_data/v09_93_05/icarus_data-09.93.05-noarch.tar.bz2",
-    )
     version(
         "09.42.00",
         sha256="69efe77bff79829b0cd8b005e4f1f0a7da23247d59d0b4413a1042061cad7221",

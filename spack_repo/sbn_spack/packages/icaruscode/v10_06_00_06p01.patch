@@ -1,0 +1,13 @@
+--- A/CMakeLists.txt	2025-11-04 15:37:40.973142375 -0600
++++ B/CMakeLists.txt	2025-11-04 15:42:28.284732800 -0600
+@@ -19,8 +19,9 @@
+ find_package(cetmodules 3.24.01 REQUIRED)
+ #project(icaruscode VERSION 10.06.00.06 LANGUAGES CXX)
+ 
+-set(${PROJECT_NAME}_CMAKE_PROJECT_VERSION_STRING 10.06.00.06-p01)
+ project(icaruscode LANGUAGES CXX)
++set(${PROJECT_NAME}_EXTENDED_VERSION_SEMANTICS True)
++set(${PROJECT_NAME}_CMAKE_PROJECT_VERSION_STRING 10.06.00.06-p01)
+ 
+ message(STATUS
+   "\n-- ============================================================================="
