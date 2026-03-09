@@ -1,0 +1,48 @@
+diff --git a/sbnobj/Common/CRT/CMakeLists.txt b/sbnobj/Common/CRT/CMakeLists.txt
+index f930cb90..63addad7 100644
+--- a/sbnobj/Common/CRT/CMakeLists.txt
++++ b/sbnobj/Common/CRT/CMakeLists.txt
+@@ -8,7 +8,10 @@ cet_make_library(
+     lardataobj::Simulation
+   )
+ 
+-art_dictionary(DICTIONARY_LIBRARIES sbnobj::Common_CRT)
++art_dictionary(DICTIONARY_LIBRARIES 
++               sbnobj::Common_CRT
++               nusimdata::SimulationBase
++               larcorealg::Geometry)
+ 
+ install_headers()
+ install_source()
+diff --git a/sbnobj/ICARUS/CRT/CMakeLists.txt b/sbnobj/ICARUS/CRT/CMakeLists.txt
+index 8e4bcff4..2ab2a9b6 100644
+--- a/sbnobj/ICARUS/CRT/CMakeLists.txt
++++ b/sbnobj/ICARUS/CRT/CMakeLists.txt
+@@ -6,7 +6,10 @@ cet_make_library(
+     lardataobj::Simulation
+   )
+ 
+-art_dictionary(DICTIONARY_LIBRARIES sbnobj::ICARUS_CRT)
++art_dictionary(DICTIONARY_LIBRARIES 
++               sbnobj::ICARUS_CRT
++               nusimdata::SimulationBase
++              )
+ 
+ install_headers()
+ install_source()
+diff --git a/sbnobj/SBND/CRT/CMakeLists.txt b/sbnobj/SBND/CRT/CMakeLists.txt
+index e960e62f..04d9b16d 100644
+--- a/sbnobj/SBND/CRT/CMakeLists.txt
++++ b/sbnobj/SBND/CRT/CMakeLists.txt
+@@ -14,7 +14,10 @@ cet_make_library(
+     lardataobj::RecoBase
+   )
+ 
+-art_dictionary(DICTIONARY_LIBRARIES sbnobj::SBND_CRT)
++art_dictionary(DICTIONARY_LIBRARIES 
++               sbnobj::SBND_CRT
++               nusimdata::SimulationBase
++              )
+ 
+ install_headers()
+ install_source()

@@ -6,12 +6,14 @@
 import os
 import sys
 
-from spack import *
+from spack.package import *
+
 
 def sanitize_environments(env, *vars):
     for var in vars:
         env.prune_duplicate_paths(var)
         env.deprioritize_system_paths(var)
+
 
 class Sbndaq(CMakePackage):
     """Common code and utilities for SBN DAQs"""
@@ -20,19 +22,18 @@ class Sbndaq(CMakePackage):
     url = "https://github.com/SBNSoftware/sbndaq"
     git_base = "https://github.com/SBNSoftware/sbndaq.git"
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq/tags"
-    
-    version("v1_10_03", sha256="5bf0215c9d4146142e00455e4ca12231c42ab35f01e6b49f4baae0bbb57cc561")
+
+    version("v1_10_08", sha256="7b4c94727e3b711ab6a07c65050d6ae26f7b93b2692f181806ce70a48dd6a16c")
+    version("v1_10_07", sha256="e22af191efad5e94e57c9fa84c98f372f125a210a0289186ab265ecc6fc4eb32")
+    version("v1_10_06", sha256="a692a0f493cc0fbbc83c73b3d370669a583c8a1957538460d60baf2528fcb8a2")
+    version("v1_10_05", sha256="25cb4f38335113b53ef39786adaf12dc1f2eaf998bec82afa944278c1faf0ec5")
+    version("v1_10_04", sha256="a19f199b70753cdbf33ad251f52eeae18860bef6359b866f1084b613451045bf")
+    version("v1_10_03", sha256="b6c25ef4ca475dd7fff2d5c12f5242045f37801ae20948954b19daf88a9a8f41")
     version("v1_10_02", sha256="ec0b142cb2625015afa7c7c970f5be9980dc96eaf3f868651d4546e89ecdac32")
     version("v1_10_01", sha256="d6bea502d1b577451ee2e27eb4678c588bfe8820140f30ab76f2f7f240a0e1f6")
     version("v1_10_00", sha256="f0753c27bda6d5f81a8610ed6bee36286c16d4d24e844da626129f6c72340319")
-    version("v1_09_02", sha256="a3b30c878bdbc8fbabecae0035640c14d64ab07cc3405559d26eba9bc77b787f")
-    version("v1_09_01", sha256="6ff41011d1cee9bf6dcd2ee7919de6ff030fdf0387d052a57094d1d22227d613")
-    version("v1_09_00", sha256="d7c5b4d809a4838ec520c3afbe9ebb35bf20b0cfcc4fdcabff2a550fce2c99b2")
-    version("v1_08_06", sha256="84fb16af0a6581d5aeec325a7a2a2193fdb7e159a23ea0f68617fcf73beb7727")
-    version("v1_08_05", sha256="f03dc93293890b9b19215354f54abba9ad2b766bb2613e69b7baf8a28c31f195")
-    version("v1_08_04", sha256="e438f8bfcf72d285126c28275d9e93ea9b954dcadbc0c565f9f7561b44978610")
-    version("v1_08_01", sha256="dddb3f09e64635bd9cff416f183f393604bcdacac1f165427d0b66c847643b5c")
-    version("v1_08_00", sha256="8cdc92caf95566cbc85f099dd60a4f2dcd61d38161753cf7e3dcbe23e1ea1016")
+    
+    version("migration", git=git_base, branch="feature/upgrade_gcc13.1.0", get_full_repo=True)
     version("develop", git=git_base, branch="develop", get_full_repo=True)
 
     variant(
@@ -42,9 +43,15 @@ class Sbndaq(CMakePackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
-    
-    variant("icarus", default=False, description="Build ICARUS-specific parts of the package")
-    variant("sbnd", default=False, description="Build SBND-specific parts of the package")
+
+    variant(
+        "icarus",
+        default=False,
+        description="Build ICARUS-specific parts of the package",
+    )
+    variant(
+        "sbnd", default=False, description="Build SBND-specific parts of the package"
+    )
 
     depends_on("sbndaq-artdaq")
     depends_on("sbndaq-artdaq+icarus", when="+icarus")
@@ -76,7 +83,7 @@ class Sbndaq(CMakePackage):
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
             "-DICARUS_BUILD={0}".format(int("+icarus" in self.spec)),
             "-DSBND_BUILD={0}".format(int("+sbnd" in self.spec)),
-            "-DSPACK_BUILD=1"
+            "-DSPACK_BUILD=1",
         ]
         return args
 

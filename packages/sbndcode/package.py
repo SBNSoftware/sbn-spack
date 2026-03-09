@@ -1,4 +1,4 @@
-# Copyright 2013-2019 Lawrence Livermore National Security, LLC and other
+# Copyright2013-2019 Lawrence Livermore National Security, LLC and other
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
@@ -6,7 +6,7 @@
 import os
 import sys
 
-from spack import *
+from spack.package import *
 
 libdir = "%s/var/spack/repos/fnal_art/lib" % os.environ["SPACK_ROOT"]
 if libdir not in sys.path:
@@ -34,15 +34,29 @@ class Sbndcode(CMakePackage):
     framework for particle physics experiments.
     """
 
-    homepage = "https://cdcvs.fnal.gov/redmine/projects/sbncode"
     git_base = "https://github.com/SBNSoftware/sbndcode.git"
 
-    version("develop", branch="develop", git=git_base, get_full_repo=True)
+    version("10.06.00.01", sha256="5ad9dfb9e96adf82a9f0a6fcbcb8042664b1349fe4f44374462f17fce2d95b51")
+    version("10.04.07", tag="v10_04_07", git=git_base, get_full_repo=True)
+    version("10.04.06.01",tag="v10_04_06_01", git=git_base, get_full_repo=True)
+    version("09.93.01.02.01", tag="v09_93_01_02p01", git=git_base, get_full_repo=True)
+    version("09.93.01.02", tag="v09_93_01_02rc0", git=git_base, get_full_repo=True)
+    version("09.93.01.01", tag="v09_93_01_01", git=git_base, get_full_repo=True)
+    version("09.93.01", tag="v09_93_01", git=git_base, get_full_repo=True)
+    version("09.91.02.02", tag="v09_91_02_02", git=git_base, get_full_repo=True)
+    version("09.91.02.01", tag="v09_91_02_01", git=git_base, get_full_repo=True)
+    version("09.90.00", tag="v09_90_00", git=git_base, get_full_repo=True)
     version("09.32.00", tag="v09_32_00", git=git_base, get_full_repo=True)
     version("09.10.00", tag="v09_10_00", git=git_base, get_full_repo=True)
     version("09.10.01", tag="v09_10_01", git=git_base, get_full_repo=True)
 
+    patch("spack.patch")
     patch("v09_32_00.patch", when="@9.32.00")
+    patch("v09_90_00.patch", when="@9.90.00")
+    patch("v09_91_02_02.patch", when="@9.91.02.02")
+    patch("v09_91_02_01.patch", when="@9.91.02.01")
+    patch("v09_93_01_01.patch", when="@09.93.01.01")
+    patch("v09_93_01_02.patch", when="@09.93.01.02")
 
     variant(
         "cxxstd",
@@ -52,80 +66,69 @@ class Sbndcode(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    # Build-only dependencies.
     depends_on("cmake@3.11:")
     depends_on("cetmodules", type="build")
     depends_on("cetbuildtools", type="build")
-
-    # Build and link dependencies.
-    depends_on("artdaq-core", type=("build", "run"))
-    depends_on("art-root-io", type=("build", "run"))
-    depends_on("art", type=("build", "run"))
-    depends_on("artdaq-core", type=("build", "run"))
-    depends_on("boost", type=("build", "run"))
-    depends_on("canvas-root-io", type=("build", "run"))
-    depends_on("canvas", type=("build", "run"))
-    depends_on("cetlib-except", type=("build", "run"))
-    depends_on("clhep", type=("build", "run"))
-    depends_on("cppgsl", type=("build", "run"))
+    depends_on("libjpeg", type="build")
+    depends_on("libpng", type="build")
+    depends_on("giflib", type="build")
     depends_on("eigen", type=("build", "run"))
-    depends_on("fftw", type=("build", "run"))
-    depends_on("hep-concurrency", type=("build", "run"))
-    depends_on("ifdh-art", type=("build", "run"))
-    depends_on("tbb", type=("build", "run"))
-    depends_on("geant4", type=("build", "run"))
-    depends_on("xerces-c", type=("build", "run"))
-    depends_on("larana", type=("build", "run"))
-    depends_on("larcoreobj", type=("build", "run"))
-    depends_on("larcore", type=("build", "run"))
-    depends_on("lardataobj", type=("build", "run"))
-    depends_on("lardata", type=("build", "run"))
-    depends_on("larevt", type=("build", "run"))
-    depends_on("pandora", type=("build", "run"))
-    depends_on("larpandora", type=("build", "run"))
-    depends_on("larpandoracontent", type=("build", "run"))
-    depends_on("py-torch", type=("build", "run"))
-    depends_on("larreco", type=("build", "run"))
-    depends_on("larsim", type=("build", "run"))
     depends_on("libwda", type=("build", "run"))
     depends_on("marley", type=("build", "run"))
-    depends_on("nug4", type=("build", "run"))
-    depends_on("genie", type=("build", "run"))
-    depends_on("ifdhc", type=("build", "run"))
-    depends_on("libxml2", type=("build", "run"))
-    # depends_on('nurandom', type=('build','run'))  ???
-    depends_on("nutools", type=("build", "run"))
     depends_on("postgresql", type=("build", "run"))
-    depends_on("range-v3", type=("build", "run"))
-    depends_on("sbndaq-artdaq-core", type=("build", "run"))
-    depends_on("sqlite", type=("build", "run"))
-    depends_on("trace", type=("build", "run"))
     depends_on("dk2nudata", type=("build", "run"))
+
+    depends_on("cry", type=("build", "run"))
+    depends_on("dk2nugenie", type=("build", "run"))
+    depends_on("rstartree", type=("build", "run"))
+
+    depends_on("vdt", type=("build", "run"))
     depends_on("sbncode", type=("build", "run"))
+    depends_on("sbnd-data", type=("build", "run"))
+    depends_on("cetmodules", type=("build", "run"))
 
     if "SPACKDEV_GENERATOR" in os.environ:
         generator = os.environ["SPACKDEV_GENERATOR"]
         if generator.endswith("Ninja"):
             depends_on("ninja", type="build")
 
+    def patch(self):
+        cetmodules_version = self.spec['cetmodules'].version.string
+        sbndcode_version = self.version.string
+        filter_file('cetmodules REQUIRED', 'cetmodules '+cetmodules_version+' REQUIRED','CMakeLists.txt')
+        filter_file('sbndcode LANGUAGES', 'sbndcode VERSION '+sbndcode_version+' LANGUAGES','CMakeLists.txt')
+
     def url_for_version(self, version):
-        # url = 'https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/{0}.v{1}.tbz2'
         url = "https://github.com/SBNSoftware/{0}/archive/v{1}.tar.gz"
         return url.format(self.name, version.underscored)
 
     def cmake_args(self):
         # Set CMake args.
         args = [
+            "-DIGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES=True",
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
+            "-Dsbndcode_FW_DIR=fw",
+            "-Dsbndcode_WP_DIR={0}".format(self.spec["wirecell"].prefix),
+            "-DCMAKE_PREFIX_PATH={0}".format(
+                self.spec["sbnanaobj"].prefix),
             "-DCMAKE_PREFIX_PATH={0}/lib/python{1}/site-packages/torch".format(
                 self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2)
             ),
-        ]
+            "-DTensorFlow_INCLUDE_DIR={0}/lib/python{1}/site-packages/tensorflow/include".format(
+                    self.spec["py-tensorflow"].prefix, "3.9"),
+            "-DTensorFlow_LIBRARIES={0}/lib/python{1}/site-packages/tensorflow".format(
+                    self.spec["py-tensorflow"].prefix, "3.9"),
+            "-DTensorFlow_cc_LIBRARY={0}/lib/python{1}/site-packages/tensorflow/libtensorflow_framework.so".format(
+                    self.spec["py-tensorflow"].prefix, "3.9"),
+            "-DTensorFlow_framework_LIBRARY={0}/lib/python{1}/site-packages/tensorflow/libtensorflow_cc.so".format(
+                    self.spec["py-tensorflow"].prefix, "3.9"),
+            ]
         return args
 
     def setup_build_environment(self, spack_env):
         # Binaries.
         spack_env.prepend_path("PATH", os.path.join(self.build_directory, "bin"))
+        spack_env.set("SBNDCODE_DIR", str(self.build_directory))
         # Ensure we can find plugin libraries.
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
@@ -135,6 +138,9 @@ class Sbndcode(CMakePackage):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.build_directory, "perllib"))
+        spack_env.prepend_path("GENIE_INC", str(self.spec["genie"].prefix.include))
+        spack_env.prepend_path("hep_hpc_DIR", str(self.spec["hep-hpc"].prefix))
+        spack_env.prepend_path("LD_LIBRARY_PATH", "{0}/lib/python{1}/site-packages/tensorflow".format(self.spec["py-tensorflow"].prefix, "3.9"))
         # Cleaup.
         sanitize_environments(spack_env)
 
@@ -144,15 +150,17 @@ class Sbndcode(CMakePackage):
         # Ensure we can find plugin libraries.
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
-        for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
-        ):
-            run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        # Cleaup.
-        sanitize_environments(run_env)
+        # sbnd_data path       
+        run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.spec['sbnd-data'].prefix))
+        # fcl file prefix
+        run_env.prepend_path("FHICL_FILE_PATH", self.prefix.fcl)
+        run_env.prepend_path("FHICL_INCLUDE_PATH", self.prefix.fcl)
+        # Add to wire-cell path
+        run_env.prepend_path("WIRECELL_PATH", os.path.join(self.spec['wirecell'].prefix))
+
 
     def setup_dependent_build_environment(self, spack_env, dependent_spec):
         # Binaries.
@@ -164,16 +172,4 @@ class Sbndcode(CMakePackage):
         # Perl modules.
         spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
-        sanitize_environments(spack_env)
-
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
-        # Binaries.
-        run_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Ensure Root can find headers for autoparsing.
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        # Cleanup.
-        sanitize_environments(run_env)
+        sanitize_environments(spack_env) 

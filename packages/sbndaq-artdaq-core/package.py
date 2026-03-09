@@ -6,7 +6,7 @@
 import os
 import sys
 
-from spack import *
+from spack.package import *
 
 
 class SbndaqArtdaqCore(CMakePackage):
@@ -18,38 +18,19 @@ class SbndaqArtdaqCore(CMakePackage):
     git_base = "https://github.com/SBNSoftware/sbndaq-artdaq-core.git"
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq-artdaq-core/tags"
 
-    version(
-        "v1_10_03",
-        sha256="d69150f99f520bbdf1ad3f70448d3091c5f7562c6eafb0714c86fad03d3010bb",
-    )
-    version(
-        "v1_10_02",
-        sha256="a8ddec009322f17ec8c690185b10ad486a697c16b1b44425f5e0d07ba51a9829",
-    )
-    version(
-        "v1_10_01",
-        sha256="7dd4d1240f3fcde891a2431b1fd1376385dc78ead8cf131443c5a57eef606912",
-    )
-    version(
-        "v1_10_00",
-        sha256="219df9d450107afc9ef38e7c77e704b719ac621d5c92e9d0aeca8aa48a13895d",
-    )
-    version(
-        "v1_09_01",
-        sha256="bb47b25a02a58bc3233dc4d38543ff38e79bb03b6840ed716b7319327962560d",
-    )
-    version(
-        "v1_09_00",
-        sha256="76fcd5e9b8e2167268f23c549c825445de94e4e69941ffb0a70297a8093b1ca5",
-    )
-    version(
-        "v1_08_00of0",
-        sha256="4b839b28a9ac17b89a3c33f840fb7cd3ae96f13c12ab461794a7dd04b144b024",
-    )
-    version(
-        "v1_08_00",
-        sha256="02c5008d8b411f3edd8a67be9ae4f51fba840533693c624981a649679c0e43dd",
-    )
+    version("v1_10_08", sha256="2dae0e0952c6005978b8f0f58cb02448805293b0a9788c59484e5da368ec0c9a")
+    version("v1_10_06", sha256="45a0d2fe62226c2111992bd0b0c020b3dcdd406a3fdf13db6bdc0fb1a1e3ee40")
+    version("v1_10_04", sha256="16d537f75e390a4f101f08c22181fb9fffcd5e2d282cd39865b86c9327f3596d")
+    version("v1_10_03", sha256="de72fba489e5f15b89843a86d60e3fd75d5fd18993dc353017cc657be602323b")
+    version("v1_10_02", sha256="a8ddec009322f17ec8c690185b10ad486a697c16b1b44425f5e0d07ba51a9829")
+    version("v1_10_01", sha256="7dd4d1240f3fcde891a2431b1fd1376385dc78ead8cf131443c5a57eef606912")
+    version("v1_10_00", sha256="219df9d450107afc9ef38e7c77e704b719ac621d5c92e9d0aeca8aa48a13895d")
+    version("v1_09_01", sha256="bb47b25a02a58bc3233dc4d38543ff38e79bb03b6840ed716b7319327962560d")
+    version("v1_09_00", sha256="76fcd5e9b8e2167268f23c549c825445de94e4e69941ffb0a70297a8093b1ca5")
+    version("v1_08_00of0", sha256="4b839b28a9ac17b89a3c33f840fb7cd3ae96f13c12ab461794a7dd04b144b024")
+    version("v1_08_00", sha256="02c5008d8b411f3edd8a67be9ae4f51fba840533693c624981a649679c0e43dd")
+    
+    version("migration", git=git_base, branch="feature/upgrade_gcc13.1.0", get_full_repo=True)
     version("develop", git=git_base, branch="develop", get_full_repo=True)
 
     variant(
