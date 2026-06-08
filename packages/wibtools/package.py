@@ -16,6 +16,7 @@ class Wibtools(CMakePackage):
     git_base = "https://github.com/SBNSoftware/wibtools.git"
     list_url = "https://api.github.com/repos/SBNSoftware/wibtools/tags"
 
+    version("v2_02_00", sha256="d4af113b3004affa30f0fd314ab579faecd40c951c1ad37e853cc210f3d26735")
     version("v2_01_00", sha256="86cb60a3f6bca1f7ea72c37703988cb53e09066d33652273986a6607902e70e0")
     version("v2_00_00", sha256="f1a742d14112a56676cf9047cfa3121ae12f3f177f4888f145b34d940d0f79bf")
     version("v1_10_09", sha256="fe44fd7723daac08a393df08778922dc6d5b189ed1240a7741ecba45722d2969")
