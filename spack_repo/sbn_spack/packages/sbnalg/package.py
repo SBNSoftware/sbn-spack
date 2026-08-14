@@ -15,8 +15,10 @@ class Sbnalg(CMakePackage):
     SBN software not depending on art framework
     """
 
-    git_base = "https://github.com/SBNSoftware/sbnalg.git"
-    git = git_base
+    git_base = "https://github.com/SBNSoftware/sbnalg"
+    git = f"{git_base}.git"
+    url = f"{git_base}/archive/v10_03_00.tar.gz"
+    list_url = "https://github.com/SBNSoftware/sbnalg/tags"
     depends_on("c", type="build")
     depends_on("cxx", type="build")
 
@@ -26,10 +28,13 @@ class Sbnalg(CMakePackage):
     depends_on("cetmodules")
 
     version("develop", branch="develop", get_full_repo=True)
+    version("10.23.00", sha256="68c5df50b37cb8c654d023bc988380edaf50c8b1b819d011760bc3b19d431005")
+    version("10.22.00", sha256="f091c8b038712649db387327113be2958732f6d8f439fdef28552e92b2027812")
     version("10.20.09", sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
     version("10.20.03", sha256="d64f1aea05c10430f8a30ae4cab8c825350bf3e2f38b203cc16b680058ce2cf9")
     version("10.12.02", sha256="887a1ebf0bf11da22159f185d922dc4ac60b26216fdb9b34694853bd66309137")
     version("10.11.01.01", sha256="035775680fc6ea0b28e7f186cdfc1dbbfc977de5eed70494406f93d928ddbb72")
+    version("10.06.00.14lf01", sha256="cb988a3a728f51ab69970d608e5d7ba8e386f7a5bcfb5aa81e904e52cdb10706")
     version("10.06.00.01", sha256="cdf8ef0b02e349918189a3b62de535f49f7c9c61035a7a15d592dd97dbaf0841")
     version("10.04.07", sha256="d52b8fc243596662f037f19fe6f9d61296c7673bf200a11023279a715d0729bc")
 

@@ -21,6 +21,10 @@ class Sbndcode(CMakePackage):
     list_url = "https://github.com/SBNSoftware/sbndcode/tags"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("10.22.00", sha256="8d12d71c8df7d17decfced736eb24e7cfd1eeaec36c550abbca0e931cda17a95")
+    version("10.21.02", sha256="faa4d46a5bb7e936289bc4e701a3e23efa0fb6d9873eb9963dd5dcf14dd87de9")
+    version("10.21.01", sha256="b788e9bb7382642cb3ea3e6594a9fd5f47f1ac0acc556f747b2229f1bba8f8a5")
+    version("10.21.00", sha256="d45862c598cd3edeeb765419f7e5b495cac995e5a2e33ae03f0cbd78a4c827a0")
     version("10.20.03", sha256="9c9890b5e6b5590e2e0475943b94efab3c67b9217a42ac430e7f45a92bcc4469")
     version("10.11.01.01", sha256="dae33d76ae429e1ad5f4775c0e6a0059fb44d7190471db378d7748285f4533d5")
     version("10.12.02", sha256="9360544a3b9ad2dd7500d1479b1a76b52a2153169a9222eccc17153477894c9a")

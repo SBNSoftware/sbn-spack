@@ -41,6 +41,9 @@ class Icarusalg(CMakePackage):
         git=git_base,
         get_full_repo=True,
     )
+    version("10.22.00", sha256="d84f834175ba9ab8f7a3d812882eb21b203995fab8fd44dbc0dac0b86c4990de")
+    version("10.20.10", sha256="ed9cd5bfc4809d00fe369e1e43b4f354dc8f7e71452bec61b575657672fde46a")
+    version("10.20.09", sha256="3a651b29490c5272bd4f676ed819d3b66b8076fa285a8280d5721a2ed23b9d89")
     version("10.06.00.06", sha256="932cbb3198819b1a6c8eb63f3af65f8ff5edd21dfdb05d09dcb743c2ff18a5f1")
     version("10.06.00.04", sha256="87dcfd9168426a5a371494740243ab5dd0b310473cab68db7e238d0cdc12f71f")
     version("10.04.08", sha256="21e4e39c8491c2cda0b299fdc34d9f368d1340f0537d5e5b20c2e311107d1fa9")

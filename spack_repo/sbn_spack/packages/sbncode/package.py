@@ -34,6 +34,11 @@ class Sbncode(CMakePackage):
     git = "https://github.com/SBNSoftware/sbncode.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v10_23_00", tag="v10_23_00", submodules=True)
+    version("v10_22_00", tag="v10_22_00", submodules=True)
+    version("v10_21_02", tag="v10_21_02", submodules=True)
+    version("v10_21_01", tag="v10_21_01", submodules=True)
+    version("v10_21_00", tag="v10_21_00", submodules=True)
     version("v10_20_09",commit="fba3cb70eda0a7155b8a682419329aaa97f310d7", submodules=True)
     version("v10_20_03",commit="046b161a9787305f4adabf872f2485d0a49ed87e", submodules=True)
     version("v10_12_02",commit="813ca27339a3aac3fcf15ef78332c1e7978fa389", submodules=True)
@@ -44,24 +49,9 @@ class Sbncode(CMakePackage):
     version("v10_04_04",commit="d49df6743d95631d6c9edc2ae01ee3f3e3a5c01f", submodules=True)
     version("v09_93_01_p01", commit="b67723df67c57e7325c4baf3825760c6683f1c7a", submodules=True)
     version("v09_93_01_p02", commit="45baa22ccf40934ca65f5c5229df4c52ad1f7fbb", submodules=True)
-    version("09.91.02.01", commit="bf374b540b658d2d175e048da6f43ce2e4d9c509", submodules=True)
-    version("09.91.01", commit="f3da8986c43f9d9d7e674b9ab7866da314db5745", submodules=True)
 
-    version(
-        "09.37.02.03", sha256="1d287d1dd3df5c2108154660f9846ce7776a69cb4861d0f89beea69e0c60fbce"
-    )
-    version("09.37.01.03", checksum="297eaedc009e7069da0427acc0af4f27")
-    version(
-        "09.37.01.02", sha256="a7811d95c816f112f3e320fbf2a15b199a6af3c385e1f53e14ddb6c04ace54cf"
-    )
-    version("09.35.00", sha256="6dc753dcc24e9583a261a70da99a1275835b70091c816dbbb0ddee60ad698686")
 
 #    patch("spack.patch")
-    patch("v09_35_00.patch", when="@09.35.00")
-    patch("v09_37_02_03.patch", when="@09.37.02.03")
-    patch("v09_37_01_02.patch", when="@09.37.01.02")
-    patch("v09_37_01_03.patch", when="@09.37.01.03")
-    patch("v09_91_01.patch", when="@09.91.01")
 
     variant(
         "cxxstd",

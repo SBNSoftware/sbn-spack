@@ -43,6 +43,10 @@ class Icaruscode(CMakePackage):
         git= f"{git_base}.git" ,
         get_full_repo=True,
     )
+    version("10.20.09p02", sha256="77179ab9d47dbdc5380aa39cbad3aebb3477c28697e6ace816fd508c581dbfbe")
+    version("10.20.09p01", sha256="5dd000a4d2c5fe4eebfdd8fd07bf9cc73fa2a0b6ffff4787431fa87525f2a2c1")
+    version("10.20.09", sha256="3bf76240820b5023a3c91386096f145a375f599a01704d74b058c226d369c270")
+    version("10.20.07", sha256="7a281daa42c518c983efd44325d8f3763ebe66661d39278082baad83c9c69baf")
     version("10.06.00.06p01", sha256="fb6298e4d6b93f66ff1964dfb4c79e2472d8cf5100824c1b09d6e4c64d5cb629")
     version("10.06.00.06", sha256="7de2aba6d4285877d72aa04a25ef0ecc20d199cb6699e9febed590ad6dee6653")
     version("10.06.00.04p04", sha256="1697cad45fcb110927ac7f89de67d45c88bd0741bd582df367d38be7f9749420")

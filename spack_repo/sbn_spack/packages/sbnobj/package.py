@@ -21,6 +21,9 @@ class Sbnobj(CMakePackage):
     list_url = "https://github.com/SBNSoftware/sbnobj/tags"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("10.23.00", sha256="0b6a9c6cd9941022defff78a83113f868c57e82ec855d29f38c7ecbde3f22889")
+    version("10.22.00", sha256="2e23b47a1760ef23ae0cabce7982c864e221b756e9ec1f7ff9c8f44674bb5c50")
+    version("10.21.01", sha256="4245d7870ab532930918299d2c6568ea20b3e3a8d8521c1505d347d0a32c96d0")
     version("10.20.09", sha256="dec45f14c5adf418014c12e72821e781b01622e38e97b709604a76aec2078cf6")
     version("10.20.03", sha256="906e10c498ac5a90490cbc67a732775711fdb675904795fabf1be9e38efe5c52")
     version("10.03.01", sha256="2c4e1c79a3b823d507ee9708aeec66951fb1539e31dc911fb02567acc809d24c")
@@ -34,9 +37,6 @@ class Sbnobj(CMakePackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
-
-#    patch("spack.patch")
-#    patch("cetmodules2.patch", when="@develop")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
