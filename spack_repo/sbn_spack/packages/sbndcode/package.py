@@ -90,7 +90,6 @@ class Sbndcode(CMakePackage):
 
     def patch(self):
         cetmodules_version = self.spec['cetmodules'].version.string
-        sbndcode_version = self.version.string.split('_')[0]
         filter_file('find_package\(cetmodules REQUIRED\)',
                 'find_package(protobuf REQUIRED)\nfind_package(cetmodules REQUIRED)',
                 "CMakeLists.txt")
