@@ -55,7 +55,6 @@ class Sbnalg(CMakePackage):
 
     def patch(self):
         cetmodules_version = self.spec['cetmodules'].version.string
-        sbndcode_version = self.version.string
         filter_file('cetmodules 3.27.00 REQUIRED', 'cetmodules '+cetmodules_version+' REQUIRED','CMakeLists.txt')
 
 
