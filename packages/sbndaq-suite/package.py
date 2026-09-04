@@ -16,6 +16,7 @@ class SbndaqSuite(BundlePackage):
     squals = ("128","131","132")
 
 
+    version("v2_03_01")
     version("v2_03_00")
     version("v2_02_00")
     version("v2_01_00")
@@ -124,6 +125,21 @@ class SbndaqSuite(BundlePackage):
         depends_on("windriver@v12_06_00")
 
 ##insert-here
+    with when("@v2_03_01"):
+        depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
+        depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
+        #
+        depends_on("caenvmelib@4.0.2")
+        depends_on("caencomm@1.7.0")
+        depends_on("caendigitizer@2.17.3")
+        #
+        depends_on("wibtools@v2_03_01")
+        depends_on("sbndaq-artdaq-core@v2_03_01")
+        depends_on("sbndaq-artdaq@v2_03_01")
+        depends_on("sbndaq@v2_03_01")
+        depends_on("artdaq-runcontrol-gui@v1_03_06")
+        depends_on("windriver@v16_06_00")
+
     with when("@v2_03_00"):
         depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
         depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
