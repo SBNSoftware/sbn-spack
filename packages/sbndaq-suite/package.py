@@ -73,7 +73,9 @@ class SbndaqSuite(BundlePackage):
     depends_on("windriver@v16_05_00", when="@v2_01_00")
     depends_on("windriver@v12_06_00", when="@:v2_00_00")
     
-    depends_on("artdaq-daqinterface@v4_06_00", when="@v2_02_00:")
+    depends_on("artdaq-daqinterface@v4_06_01", when="@v2_03_01:")
+    depends_on("artdaq-daqinterface@v4_06_00", when="@v2_03_00")
+    depends_on("artdaq-daqinterface@v4_06_00", when="@v2_02_00")
     depends_on("artdaq-daqinterface@v4_05_00", when="@v2_01_00")
 
     depends_on("artdaq-database@v3_05_00", when="@v2_02_00:")
