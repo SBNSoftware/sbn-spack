@@ -66,12 +66,6 @@ class IcarusSignalProcessing(CMakePackage):
     patch("v09_32_01.patch", when="@09.32.01")
     patch("v09_37_01.patch", when="@09.37.01")
 
-    def patch(self):
-        filter_file("isnan\(val\)",
-                "std::isnan(val)",
-                "icarus_signal_processing/WaveformTools.h"
-                )
-
     if "SPACKDEV_GENERATOR" in os.environ:
         generator = os.environ["SPACKDEV_GENERATOR"]
         if generator.endswith("Ninja"):
