@@ -30,6 +30,7 @@ class Sbndata(Package):
     homepage = "https://www.example.com"
     url = "https://github.com/SBNSoftware/sbndata/archive/refs/tags/v01_07.tar.gz"
 
+    version("01_10", sha256="fd489b98e1f1fbb5475b6d1628e73d76ce8fa063e224cb78767ad52e9b02cb2f")
     version("01_08", sha256="758619e7b6998bc048272ffb731ee759a79f400cdf04b12ae6ad16fda97eec35") 
     version("01_07", sha256="a85f0a9fcd33a7a82688f000594161efcd765c73c139c54c004a36ae52469662")
     version("01_06", sha256="32a4ecab5a5196f488499c38259ad5088bba6c672abcc25085df0e14c1407012")
