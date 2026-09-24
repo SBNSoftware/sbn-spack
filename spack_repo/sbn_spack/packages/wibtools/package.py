@@ -8,6 +8,8 @@ import sys
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
+import spack.util.spack_json as sjson 
+
 
 class Wibtools(CMakePackage):
     """Tools for communicating with the WIB hardware"""

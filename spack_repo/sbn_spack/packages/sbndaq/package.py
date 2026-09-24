@@ -8,6 +8,7 @@ import sys
 
 from spack.package import *
 from spack_repo.builtin.build_systems.cmake import CMakePackage
+import spack.util.spack_json as sjson
 
 def sanitize_environments(env, *vars):
     for var in vars:
