@@ -9,7 +9,7 @@ import spack.util.spack_json as sjson
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
-
+import spack.util.spack_json as sjson
 
 class SbndaqArtdaqCore(CMakePackage):
     """The toolkit currently provides SBNDAQ extensions to the artdaq-core
