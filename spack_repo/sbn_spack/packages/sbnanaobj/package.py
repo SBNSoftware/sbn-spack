@@ -39,6 +39,7 @@ class Sbnanaobj(CMakePackage):
 
 
     version("develop", branch="develop", get_full_repo=True)
+    version("10.26.00", sha256="974a6471dc013dc005ef4133c4acfcfc3e59bf45b6d1904e2aa9111ac97d028c")
     version("10.23.00", sha256="c0079c142fb0111e6f6ad96a92a4caedccd10399c09e3838b8ad4dc4f5589fe6")
     version("10.21.01", sha256="b6b3c7dcd47263a965a3b8aab117009d6249bb0af84bfdd453155fb2fc6abab5")
     version("10.20.09", sha256="ef85a8a61d091d8ad07b8241d7804d547a737e1671a8d4b97a73681a0ca05a3c")

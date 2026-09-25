@@ -20,6 +20,7 @@
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
+import sys
 from spack.package import *
 import glob
 
@@ -30,6 +31,8 @@ class Sbndata(Package):
     homepage = "https://www.example.com"
     url = "https://github.com/SBNSoftware/sbndata/archive/refs/tags/v01_07.tar.gz"
 
+    version("01_10", sha256="fd489b98e1f1fbb5475b6d1628e73d76ce8fa063e224cb78767ad52e9b02cb2f")
+    version("01_09", sha256="d7f73495b316e1a32a7c557db20a29ed7e971cff354ba8d499f80d42c901ce5a")
     version("01_08", sha256="758619e7b6998bc048272ffb731ee759a79f400cdf04b12ae6ad16fda97eec35") 
     version("01_07", sha256="a85f0a9fcd33a7a82688f000594161efcd765c73c139c54c004a36ae52469662")
     version("01_06", sha256="32a4ecab5a5196f488499c38259ad5088bba6c672abcc25085df0e14c1407012")
@@ -38,6 +41,9 @@ class Sbndata(Package):
     version("01_02", sha256="d25a1f96e34453052e461450add56eddb1f3c299014af133acf4c3315cb26bd4")
     version("01_01", sha256="76afeec6f7b3870596e7e1f6d80e9ac255cc7e2171b798e7b868d1e2344272d9")
     version("01_00", sha256="2ef4b2cca5b9cf6a478d9f8febe7c10c75479375b87469c05d1e176dc649ae95")
+
+    def url_for_version(self, version):
+        return f"https://github.com/SBNSoftware/sbndata/archive/refs/tags/v{str(version).replace('.', '_')}.tar.gz"
 
     def install(self, spec, prefix):
         src = glob.glob(self.stage.source_path)[0]

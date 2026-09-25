@@ -5,6 +5,7 @@
 
 import os
 import sys
+import spack.util.spack_json as sjson
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
