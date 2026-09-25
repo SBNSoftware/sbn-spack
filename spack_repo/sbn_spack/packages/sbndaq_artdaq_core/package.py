@@ -5,7 +5,7 @@
 
 import os
 import sys
-import spack.util.spack_json as sjson
+import spack
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
@@ -21,6 +21,8 @@ class SbndaqArtdaqCore(CMakePackage):
     git = "https://github.com/SBNSoftware/sbndaq-artdaq-core.git"
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq-artdaq-core/tags"
 
+    version("1.10.06.01", sha256="471b6fec70404b6a0301be8191e6d000dbad10bb0452d6efe89b93cd281577c6")
+    version("1.10.06", sha256="45a0d2fe62226c2111992bd0b0c020b3dcdd406a3fdf13db6bdc0fb1a1e3ee40")
     version("v1_10_08", sha256="2dae0e0952c6005978b8f0f58cb02448805293b0a9788c59484e5da368ec0c9a")
     version("v1_10_06", sha256="45a0d2fe62226c2111992bd0b0c020b3dcdd406a3fdf13db6bdc0fb1a1e3ee40")
     version("v1_10_04", sha256="16d537f75e390a4f101f08c22181fb9fffcd5e2d282cd39865b86c9327f3596d")
@@ -54,7 +56,8 @@ class SbndaqArtdaqCore(CMakePackage):
     )
 
     def url_for_version(self, version):
-        url = "https://github.com/SBNSoftware/{0}/archive/refs/tags/{1}.tar.gz"
+        url = "https://github.com/SBNSoftware/{0}/archive/refs/tags/v{1}.tar.gz"
+        print(url.format(self.name, version.underscored), file=sys.stderr)
         return url.format(self.name, version.underscored)
 
     def fetch_remote_versions(self, concurrency=None):
