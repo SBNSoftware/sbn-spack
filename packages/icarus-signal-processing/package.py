@@ -36,6 +36,7 @@ class IcarusSignalProcessing(CMakePackage):
     git_base = "https://github.com/SBNSoftware/icarus_signal_processing.git"
     list_url = "https://api.github/repos/SBNSoftware/icarus_signal_processing/tags"
 
+    version("10.25.00", sha256="742e3b6bdcb5709cca4cbd84db0cfaf6f2d93a54672d5781718116e1c2ff4879")
     version("10.06.00.01", sha256="11d87c100bb00f4e675917d33971a464ea5017e66f5970afcf0cd0cc2ca6e446")
     version("09.88.00.02", sha256="5fba1ecd9dc454497b3e9235742a4715e3b0fea80f701ae57ed7c5ccd260d0f8")
     version("09.37.01", sha256="a6f09ef0bea681f77061094e5ca9691c8135b7e62e55f7a1b95a5b85f0d6cc57")

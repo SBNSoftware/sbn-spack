@@ -40,6 +40,7 @@ class Icarusutil(CMakePackage):
     url = "https://cdcvs.fnal.gov/projects/icarusutil"
     git_base = "https://github.com/SBNSoftware/icarusutil.git"
 
+    version("10.24.00", tag="v10_24_00", git=git_base, get_full_repo=True)
     version("09.88.00.02", tag="v09_88_00_02", git=git_base, get_full_repo=True)
     version("08.36.00", tag="v08_36_00", git=git_base, get_full_repo=True)
     version("08.39.00", tag="v08_39_00", git=git_base, get_full_repo=True)
@@ -54,7 +55,8 @@ class Icarusutil(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    patch("spack.patch")
+    patch("spack.patch", when="@:09.88.00.02")
+    patch("v10_24_00.patch", when="@10.24.00")
 
     depends_on("art-root-io")
     depends_on("larbatch")

@@ -10,6 +10,11 @@ class IcarusData(Package):
 
     homepage = "https://icarus.fnal.gov/"
     version(
+        "10.06.06",
+        sha256="ccdab82eb6ba1867683459cd601a75ff4c97d5a70322044a4281c547263166ce",
+        url="https://scisoft.fnal.gov/scisoft/packages/icarus_data/v10_06_06/icarus_data-10.06.06-noarch.tar.bz2",
+        )
+    version(
         "09.93.06",
         sha256="4f4925cec724d5beec699fdfb13d511fa80dae52ad6be581e17ff415d2fc5c43",
         url="https://scisoft.fnal.gov/scisoft/packages/icarus_data/v09_93_06/icarus_data-09.93.06-noarch.tar.bz2",

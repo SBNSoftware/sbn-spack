@@ -1,0 +1,36 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2026-10-02 20:16:57
++++ b/CMakeLists.txt	2026-10-11 22:22:42
+@@ -17,10 +17,10 @@
+ # cmake_policy(VERSION 3.19)
+ 
+ find_package(cetmodules 3.24.01 REQUIRED)
+-#project(icaruscode VERSION 10.25.00 LANGUAGES CXX)
++project(icaruscode VERSION 10.25.00 LANGUAGES CXX)
+ 
+ set(${PROJECT_NAME}_CMAKE_PROJECT_VERSION_STRING 10.25.00)
+-project(icaruscode LANGUAGES CXX)
++#project(icaruscode LANGUAGES CXX)
+ 
+ message(STATUS
+   "\n-- ============================================================================="
+@@ -83,7 +83,7 @@
+ find_package(ROOT REQUIRED )
+ find_package(Boost COMPONENTS system program_options REQUIRED)
+ find_package(PandoraSDK REQUIRED )
+-find_package(PandoraMonitoring REQUIRED )
++# find_package(PandoraMonitoring REQUIRED )
+ find_package(SQLite3 REQUIRED )
+ find_package(artdaq_core REQUIRED )
+ find_package(sbndaq_artdaq_core REQUIRED )
+@@ -91,8 +91,8 @@
+ find_package(Microsoft.GSL HINTS $ENV{GUIDELINE_SL_DIR} REQUIRED EXPORT)
+ 
+ find_package(FFTW3f REQUIRED )
+-find_package(FFTW3q REQUIRED )
+-find_package(FFTW3l REQUIRED )
++# find_package(FFTW3q REQUIRED )
++# find_package(FFTW3l REQUIRED )
+ 
+ # macros for dictionary and simple_plugin
+ include(ArtDictionary)
