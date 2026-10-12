@@ -29,10 +29,16 @@ from spack.package import *
 class Sbnanaobj(CMakePackage):
     """FIXME: Put a proper description of your package here."""
 
-    homepage = "https://www.example.com"
-    url = "https://github.com/SBNSoftware/sbnanaobj/archive/refs/tags/v09_17_04.tar.gz"
 
-    version("10.00.04", sha256="7f53cfedfba6e864e438a949ad6c314faf627435f98984786b7713d010579eea") # FIXME
+    homepage = "https://github.com/SBNSoftware/sbnanaobj"
+    url = "https://github.com/SBNSoftware/sbnanaobj/archive/refs/tags/v09_17_04.tar.gz"
+    git_base="https://github.com/SBNSoftware/sbnanaobj.git"
+    git = git_base
+    list_url = "https://github.com/SBNSoftware/sbnanaobj/tags"
+
+
+    version("10.23.00", sha256="c0079c142fb0111e6f6ad96a92a4caedccd10399c09e3838b8ad4dc4f5589fe6")
+    version("10.00.04", sha256="7f53cfedfba6e864e438a949ad6c314faf627435f98984786b7713d010579eea")
     version("10.00.00", sha256="268492c6394a8090e1ac93bc5a47abcaac8b808d972d1bb57de25d3887802b28")
     version("09.23.02.01", sha256="88bf520e81e96311e62487efa4b01baed07e17ed4ab097ed31eaea792db0fea9")
     version("09.23.02", sha256="be2ea1ab0f6e99e30608b41b851694d7e14e1d30abbd66f18d11956c78700bbf")
@@ -67,6 +73,9 @@ class Sbnanaobj(CMakePackage):
     patch("v09_17_04.patch", when="@09.17.04")
     patch("v09_17_02.patch", when="@09.17.02")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("root")
     depends_on("py-srproxy")
     depends_on("castxml")
@@ -80,7 +89,6 @@ class Sbnanaobj(CMakePackage):
                      'sbnanaobj/StandardRecord/Proxy/CMakeLists.txt')
 
     def url_for_version(self, version):
-        # url = 'https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/{0}.v{1}.tbz2'
         url = "https://github.com/SBNSoftware/{0}/archive/v{1}.tar.gz"
         return url.format(self.name, version.underscored)
 

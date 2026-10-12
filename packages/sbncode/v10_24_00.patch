@@ -1,0 +1,216 @@
+diff --git a/sbncode/CAFMaker/CMakeLists.txt b/sbncode/CAFMaker/CMakeLists.txt
+--- a/sbncode/CAFMaker/CMakeLists.txt	2026-08-26 17:03:23
++++ b/sbncode/CAFMaker/CMakeLists.txt	2026-10-11 22:22:55
+@@ -19,7 +19,7 @@
+                   art::Persistency_Common
+                   art::Utilities canvas::canvas
+                   cetlib::cetlib cetlib_except::cetlib_except
+-                  ROOT::X3d
++                  ${ROOT_X3d}
+                   ROOT::EG
+                   CLHEP::Random
+                   caf_RecoUtils
+diff --git a/sbncode/Calibration/CMakeLists.txt b/sbncode/Calibration/CMakeLists.txt
+--- a/sbncode/Calibration/CMakeLists.txt	2026-08-26 17:03:23
++++ b/sbncode/Calibration/CMakeLists.txt	2026-10-11 22:22:55
+@@ -8,7 +8,7 @@
+                             art::Persistency_Common
+                             art::Utilities canvas::canvas
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::X3d
++                            ${ROOT_X3d}
+                             art_root_io::tfile_support
+                             art_root_io::art_root_io
+                             art_root_io::dict
+@@ -36,7 +36,7 @@
+                             art::Persistency_Common
+                             art::Utilities canvas::canvas
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::X3d
++                            ${ROOT_X3d}
+                             larcore::Geometry_Geometry_service
+                             larcorealg::Geometry
+                             larcorealg::GeoAlgo
+@@ -55,7 +55,7 @@
+                             art::Persistency_Common
+                             art::Utilities canvas::canvas
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::X3d
++                            ${ROOT_X3d}
+                             sbnobj::Common_Calibration_dict
+                             larevt::SpaceCharge
+ )
+@@ -67,7 +67,7 @@
+                             art::Utilities canvas::canvas
+                             larcore::Geometry_Geometry_service
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::X3d
++                            ${ROOT_X3d}
+ )
+ 
+ cet_build_plugin(TrackCaloSkimmerSelectClearCosmicMuon art::tool
+@@ -77,7 +77,7 @@
+                             art::Utilities canvas::canvas
+                             larcore::Geometry_Geometry_service
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::X3d
++                            ${ROOT_X3d}
+ )
+ 
+ cet_build_plugin ( DataSelect art::module
+@@ -88,7 +88,7 @@
+                art::Framework_Services_Registry
+                art::Utilities canvas::canvas
+                cetlib::cetlib cetlib_except::cetlib_except
+-               ROOT::X3d
++               ${ROOT_X3d}
+                sbnobj::Common_Calibration_dict
+                larevt::SpaceCharge
+                lardataobj::RecoBase
+diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt
+--- a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt	2026-08-26 17:03:23
++++ b/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt	2026-10-11 22:22:55
+@@ -3,8 +3,8 @@
+           SOURCE Constants.cpp
+           LIBRARIES
+                             ROOT::Core
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+         )
+@@ -20,8 +20,8 @@
+                             art::Utilities canvas::canvas
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             dk2nu::Tree
+                             CLHEP::CLHEP
+@@ -44,8 +44,8 @@
+                             art::Utilities canvas::canvas
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             CLHEP::CLHEP
+                             ifdh::ifdh
+@@ -67,8 +67,8 @@
+                             art::Utilities canvas::canvas
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             CLHEP::CLHEP
+                             ifdh::ifdh
+@@ -90,8 +90,8 @@
+                             art::Utilities canvas::canvas
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             CLHEP::CLHEP
+                             ifdh::ifdh
+@@ -112,8 +112,8 @@
+                             art::Utilities canvas::canvas
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             CLHEP::CLHEP
+                             larcorealg::Geometry
+@@ -135,8 +135,8 @@
+                             art::Utilities canvas::canvas
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             dk2nu::Tree
+                             CLHEP::CLHEP
+@@ -161,8 +161,8 @@
+                             art::Utilities canvas::canvas
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             CLHEP::CLHEP
+                             larcorealg::Geometry
+@@ -183,8 +183,8 @@
+                             art::Utilities canvas::canvas
+                             fhiclcpp::fhiclcpp
+                             cetlib::cetlib cetlib_except::cetlib_except
+-                            ROOT::Eve
+-                            ROOT::X3d
++                            ${ROOT_EVE_LIB_LIST}
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             CLHEP::CLHEP
+                             larcorealg::Geometry
+diff --git a/sbncode/LArRecoProducer/CMakeLists.txt b/sbncode/LArRecoProducer/CMakeLists.txt
+--- a/sbncode/LArRecoProducer/CMakeLists.txt	2026-08-26 17:03:23
++++ b/sbncode/LArRecoProducer/CMakeLists.txt	2026-10-11 22:22:55
+@@ -15,7 +15,7 @@
+         art::Persistency_Common
+         art::Utilities canvas::canvas
+         cetlib::cetlib cetlib_except::cetlib_except
+-        ROOT::X3d
++        ${ROOT_X3d}
+         ROOT::Core
+         messagefacility::MF_MessageLogger
+         ROOT::EG
+diff --git a/sbncode/TPCReco/CMakeLists.txt b/sbncode/TPCReco/CMakeLists.txt
+--- a/sbncode/TPCReco/CMakeLists.txt	2026-08-26 17:03:23
++++ b/sbncode/TPCReco/CMakeLists.txt	2026-10-11 22:22:55
+@@ -16,7 +16,7 @@
+         art::Persistency_Common
+         art::Utilities canvas::canvas
+         cetlib::cetlib cetlib_except::cetlib_except
+-        ROOT::X3d
++        ${ROOT_X3d}
+         messagefacility::MF_MessageLogger
+         lardata::DetectorInfoServices_DetectorClocksServiceStandard_service
+         sbnobj::Common_Reco
+@@ -46,7 +46,7 @@
+                art::Utilities canvas::canvas
+                cetlib::cetlib cetlib_except::cetlib_except
+                lardataalg::DetectorInfo
+-               ROOT::X3d
++               ${ROOT_X3d}
+ )
+ 
+ 
+diff --git a/sbncode/TPCReco/CalorimetryAnalysis/CMakeLists.txt b/sbncode/TPCReco/CalorimetryAnalysis/CMakeLists.txt
+--- a/sbncode/TPCReco/CalorimetryAnalysis/CMakeLists.txt	2026-08-26 17:03:23
++++ b/sbncode/TPCReco/CalorimetryAnalysis/CMakeLists.txt	2026-10-11 22:22:55
+@@ -8,7 +8,7 @@
+                             art::Utilities canvas::canvas
+                             cetlib::cetlib cetlib_except::cetlib_except
+                             ROOT::EG
+-                            ROOT::X3d
++                            ${ROOT_X3d}
+                             ROOT::Core
+                             art_root_io::tfile_support
+                             art_root_io::art_root_io
