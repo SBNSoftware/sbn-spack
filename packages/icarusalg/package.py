@@ -8,9 +8,6 @@ import sys
 
 from spack.package import *
 import spack.util.spack_json as sjson
-from spack import *
-from spack.package import *
-
 
 def sanitize_environments(*args):
     for env in args:

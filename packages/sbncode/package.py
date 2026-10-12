@@ -6,8 +6,6 @@
 import os
 import sys
 
-import spack.util.spack_json as sjson
-from spack import *
 from spack.package import *
 
 

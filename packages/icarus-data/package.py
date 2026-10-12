@@ -2,7 +2,6 @@ import os
 import sys
 import glob
 
-from spack import *
 from spack.package import *
 
 
