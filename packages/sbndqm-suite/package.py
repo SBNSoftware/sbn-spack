@@ -17,6 +17,7 @@ class SbndqmSuite(BundlePackage):
 
     version("develop")
     version("v1_04_00")
+    version("v1_05_00")
 
     variant("sbnd", default=False, description="Enable SBND-specific runtime code")
     variant("icarus", default=False, description="Enable ICARUS-specific runtime code")
@@ -56,6 +57,15 @@ class SbndqmSuite(BundlePackage):
         depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
         depends_on("sbndqm@v1_04_00") 
         depends_on("sbndaq-online@v1_01_00")
+        depends_on("sbndcode@10.06.00.01", type="run", when="+sbnd")
+        depends_on("icaruscode@10.06.00.01p04", type="run", when="+icarus")
+
+    # Dependencies for v1_05_00 release
+    with when("@v1_05_00"):
+        depends_on("artdaq-suite@v3_13_02 cxxstd=17", when="cxxstd=17")
+        depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
+        depends_on("sbndqm@v1_05_00") 
+        depends_on("sbndaq-online@v1_02_00")
         depends_on("sbndcode@10.06.00.01", type="run", when="+sbnd")
         depends_on("icaruscode@10.06.00.01p04", type="run", when="+icarus")
 

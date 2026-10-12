@@ -22,8 +22,9 @@ class Sbndqm(CMakePackage):
 
     version("develop", git=git_base, branch="develop", get_full_repo=True)
     version("v1_04_00", git=git_base, tag="v1_04_00", get_full_repo=True)
+    version("v1_05_00", git=git_base, tag="v1_05_00", get_full_repo=True)
 
-    patch('artdaq-utilities.patch', when='@:')
+    patch('artdaq-utilities.patch', when='@v1_04_00')
 
     variant(
         "cxxstd",
@@ -42,12 +43,17 @@ class Sbndqm(CMakePackage):
     )
 
     with when("@develop"):
-        depends_on("sbndaq-online@v1_01_00")
+        depends_on("sbndaq-online@v1_02_00")
         depends_on("sbndaq-artdaq-core@v1_10_06")
         depends_on("sbncode@v10_06_00_01")
 
     with when("@v1_04_00"):
         depends_on("sbndaq-online@v1_01_00")
+        depends_on("sbndaq-artdaq-core@v1_10_06")
+        depends_on("sbncode@v10_06_00_01")
+
+    with when("@v1_05_00"):
+        depends_on("sbndaq-online@v1_02_00")
         depends_on("sbndaq-artdaq-core@v1_10_06")
         depends_on("sbncode@v10_06_00_01")
 

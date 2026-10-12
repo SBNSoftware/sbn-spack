@@ -23,8 +23,8 @@ class SbndaqOnline(CMakePackage):
 
     version("develop", git=git_base, branch="develop", get_full_repo=True)
     version("v1_01_00", git=git_base, tag="v1_01_00", get_full_repo=True)
+    version("v1_02_00", git=git_base, tag="v1_02_00", get_full_repo=True)   
 
-    patch('spack_build.patch', when='@develop')
     patch('spack_build.patch', when='@v1_01_00')
 
     variant(
@@ -42,6 +42,10 @@ class SbndaqOnline(CMakePackage):
         depends_on("cetmodules", type="build")
 
     with when("@v1_01_00"):
+        depends_on("artdaq@v3_13_02")
+        depends_on("cetmodules", type="build")
+
+    with when("@v1_02_00"):
         depends_on("artdaq@v3_13_02")
         depends_on("cetmodules", type="build")
 
