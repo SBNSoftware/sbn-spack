@@ -22,7 +22,8 @@ class Sbndqm(CMakePackage):
 
     version("develop", git=git_base, branch="develop", get_full_repo=True)
     version("v1_04_00", git=git_base, tag="v1_04_00", get_full_repo=True)
-    version("v1_05_00", git=git_base, tag="v1_05_00", get_full_repo=True)
+    # release not tagged yet: follow the release branch
+    version("v1_05_00", git=git_base, branch="release/v1_05_00", get_full_repo=True)
 
     patch('artdaq-utilities.patch', when='@v1_04_00')
 
@@ -54,8 +55,9 @@ class Sbndqm(CMakePackage):
 
     with when("@v1_05_00"):
         depends_on("sbndaq-online@v1_02_00")
-        depends_on("sbndaq-artdaq-core@v1_10_06")
-        depends_on("sbncode@v10_06_00_01")
+        # sbncode v10_24_00 requires sbndaq-artdaq-core v1_10_06_01
+        depends_on("sbndaq-artdaq-core@v1_10_06_01")
+        depends_on("sbncode@v10_24_00")
 
     depends_on("artdaq-utilities")
     depends_on("fftw")

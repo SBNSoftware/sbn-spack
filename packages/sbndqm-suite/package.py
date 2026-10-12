@@ -66,6 +66,7 @@ class SbndqmSuite(BundlePackage):
         depends_on("artdaq-suite@v3_13_02 cxxstd=20", when="cxxstd=20")
         depends_on("sbndqm@v1_05_00") 
         depends_on("sbndaq-online@v1_02_00")
+        # TODO: sbndcode version for v1_05_00 not decided yet
         depends_on("sbndcode@10.06.00.01", type="run", when="+sbnd")
-        depends_on("icaruscode@10.06.00.01p04", type="run", when="+icarus")
+        depends_on("icaruscode@10.25.00", type="run", when="+icarus")
 
