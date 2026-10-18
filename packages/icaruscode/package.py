@@ -149,6 +149,13 @@ class Icaruscode(CMakePackage):
     depends_on("py-tensorflow", type=("build", "run"))
     depends_on("larcv2", type=("build", "run"), when="@10:")
 
+    # versions from ups/product_deps of v10_25_00
+    with when("@10.25.00"):
+        depends_on("icarus-data@10.06.06", type=("build", "run"))
+        depends_on("icarus-signal-processing@10.25.00", type=("build", "run"))
+        depends_on("icarusalg@10.25.00", type=("build", "run"))
+        depends_on("sbncode@v10_24_00", type=("build", "run"))
+
     if "SPACKDEV_GENERATOR" in os.environ:
         generator = os.environ["SPACKDEV_GENERATOR"]
         if generator.endswith("Ninja"):
