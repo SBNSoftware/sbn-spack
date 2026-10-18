@@ -92,10 +92,10 @@ class IcarusSignalProcessing(CMakePackage):
         )
 
     def patch(self):
-        print("AAAAA")
         filter_file('find_package\(FFTW3q REQUIRED EXPORT\)', '', 'CMakeLists.txt')
         filter_file('find_package\(FFTW3l REQUIRED EXPORT\)', '', 'CMakeLists.txt')
-        filter_file('isnan', 'std::isnan','icarus_signal_processing/WaveformTools.h')
+        # newer sources (e.g. 10.25.00) already use std::isnan
+        filter_file(r'(?<!std::)\bisnan\b', 'std::isnan', 'icarus_signal_processing/WaveformTools.h')
 
     def cmake_args(self):
         # Set CMake args.
