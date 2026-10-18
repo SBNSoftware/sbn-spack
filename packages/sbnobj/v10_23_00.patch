@@ -1,0 +1,42 @@
+diff -ru a/sbnobj/Common/CRT/CMakeLists.txt b/sbnobj/Common/CRT/CMakeLists.txt
+--- a/sbnobj/Common/CRT/CMakeLists.txt	2026-10-18 17:36:22
++++ b/sbnobj/Common/CRT/CMakeLists.txt	2026-10-18 17:36:22
+@@ -12,7 +12,9 @@
+     larcoreobj::geo_vectors
+   )
+ 
+-art_dictionary(DICTIONARY_LIBRARIES sbnobj::Common_CRT)
++art_dictionary(DICTIONARY_LIBRARIES
++               sbnobj::Common_CRT
++               nusimdata::SimulationBase)
+ 
+ install_headers()
+ install_source()
+diff -ru a/sbnobj/ICARUS/CRT/CMakeLists.txt b/sbnobj/ICARUS/CRT/CMakeLists.txt
+--- a/sbnobj/ICARUS/CRT/CMakeLists.txt	2026-10-18 17:36:22
++++ b/sbnobj/ICARUS/CRT/CMakeLists.txt	2026-10-18 17:36:22
+@@ -6,7 +6,9 @@
+     lardataobj::Simulation
+   )
+ 
+-art_dictionary(DICTIONARY_LIBRARIES sbnobj::ICARUS_CRT)
++art_dictionary(DICTIONARY_LIBRARIES
++               sbnobj::ICARUS_CRT
++               nusimdata::SimulationBase)
+ 
+ install_headers()
+ install_source()
+diff -ru a/sbnobj/SBND/CRT/CMakeLists.txt b/sbnobj/SBND/CRT/CMakeLists.txt
+--- a/sbnobj/SBND/CRT/CMakeLists.txt	2026-10-18 17:36:22
++++ b/sbnobj/SBND/CRT/CMakeLists.txt	2026-10-18 17:36:22
+@@ -16,7 +16,9 @@
+     lardataobj::RecoBase
+   )
+ 
+-art_dictionary(DICTIONARY_LIBRARIES sbnobj::SBND_CRT)
++art_dictionary(DICTIONARY_LIBRARIES
++               sbnobj::SBND_CRT
++               nusimdata::SimulationBase)
+ 
+ install_headers()
+ install_source()

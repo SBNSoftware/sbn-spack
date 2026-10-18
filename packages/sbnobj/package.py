@@ -30,6 +30,10 @@ class Sbnobj(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    # CRT dictionaries need nusimdata includes for checkClassVersion
+    # (nusimdata part of spack.patch; its larcorealg::Geometry is not found by 10.23)
+    patch("v10_23_00.patch", when="@10.23.00")
+
     depends_on("c", type="build")
     depends_on("cxx", type="build")
 
