@@ -58,6 +58,17 @@ class Icaruscode(CMakePackage):
         filter_file("find_package\(larsoft REQUIRED \)", "", "CMakeLists.txt")
         # icarusutil is not installed with a CMake config (see icarusutil patches)
         filter_file("find_package\(icarusutil REQUIRED \)", "", "CMakeLists.txt")
+        # checkClassVersion sets ROOT_INCLUDE_PATH from the dictionary target only, which misses
+        # headers of autoloaded dependency dictionaries (nusimdata, larcoreobj, ...): use the
+        # build environment's ROOT_INCLUDE_PATH (all link dependencies) as well
+        for f in find(".", "CMakeLists.txt"):
+            filter_file(
+                r"^(\s*(?:art|build)_dictionary\s*\()",
+                r'\1CCV_ENVIRONMENT "ROOT_INCLUDE_PATH=${PROJECT_SOURCE_DIR}:${PROJECT_BINARY_DIR}:$ENV{ROOT_INCLUDE_PATH}" ',
+                f,
+                ignore_absent=True,
+                backup=False,
+            )
 
     variant(
         "cxxstd",
