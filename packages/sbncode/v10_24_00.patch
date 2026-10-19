@@ -76,7 +76,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              ROOT::Core
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              fhiclcpp::fhiclcpp
                              cetlib::cetlib cetlib_except::cetlib_except
@@ -87,7 +87,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              cetlib::cetlib cetlib_except::cetlib_except
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              ROOT::Core
                              dk2nu::Tree
@@ -98,7 +98,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              cetlib::cetlib cetlib_except::cetlib_except
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              ROOT::Core
                              CLHEP::CLHEP
@@ -109,7 +109,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              cetlib::cetlib cetlib_except::cetlib_except
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              ROOT::Core
                              CLHEP::CLHEP
@@ -120,7 +120,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              cetlib::cetlib cetlib_except::cetlib_except
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              ROOT::Core
                              CLHEP::CLHEP
@@ -131,7 +131,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              cetlib::cetlib cetlib_except::cetlib_except
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              ROOT::Core
                              CLHEP::CLHEP
@@ -142,7 +142,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              cetlib::cetlib cetlib_except::cetlib_except
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              ROOT::Core
                              dk2nu::Tree
@@ -153,7 +153,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              cetlib::cetlib cetlib_except::cetlib_except
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              ROOT::Core
                              CLHEP::CLHEP
@@ -164,7 +164,7 @@ diff --git a/sbncode/EventGenerator/MeVPrtl/Tools/CMakeLists.txt b/sbncode/Event
                              cetlib::cetlib cetlib_except::cetlib_except
 -                            ROOT::Eve
 -                            ROOT::X3d
-+                            ${ROOT_EVE_LIB_LIST}
++                            ROOT::Physics ROOT::EG ROOT::Tree ROOT::TreePlayer
 +                            ${ROOT_X3d}
                              ROOT::Core
                              CLHEP::CLHEP
@@ -214,3 +214,14 @@ diff --git a/sbncode/TPCReco/CalorimetryAnalysis/CMakeLists.txt b/sbncode/TPCRec
                              ROOT::Core
                              art_root_io::tfile_support
                              art_root_io::art_root_io
+diff --git a/sbncode/OpT0Finder/Products/CMakeLists.txt b/sbncode/OpT0Finder/Products/CMakeLists.txt
+--- a/sbncode/OpT0Finder/Products/CMakeLists.txt
++++ b/sbncode/OpT0Finder/Products/CMakeLists.txt
+@@ -8,6 +8,7 @@
+ 
+ art_dictionary(
+     DICTIONARY_LIBRARIES
++        nusimdata::SimulationBase
+         larcorealg::Geometry
+         larcoreobj::SimpleTypesAndConstants
+         lardataobj::RecoBase
