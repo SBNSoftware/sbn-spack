@@ -23,8 +23,7 @@ class SbndaqOnline(CMakePackage):
 
     version("develop", git=git_base, branch="develop", get_full_repo=True)
     version("v1_01_00", git=git_base, tag="v1_01_00", get_full_repo=True)
-    # release not tagged yet: follow the release branch
-    version("v1_02_00", git=git_base, branch="release/v1_02_00", get_full_repo=True)
+    version("v1_02_00", git=git_base, tag="v1_02_00", get_full_repo=True)
 
     patch('spack_build.patch', when='@v1_01_00')
 
