@@ -122,6 +122,7 @@ class Icarusalg(CMakePackage):
     depends_on("fhicl-cpp", type=("build", "run"))
     depends_on("gallery", type=("build", "run"))
     depends_on("gsl", type=("build", "run"))
+    depends_on("sbnobj", type=("build", "run"))
     depends_on("hep-concurrency", type=("build", "run"))
     depends_on("larcorealg", type=("build", "run"))
     depends_on("larcoreobj", type=("build", "run"))
