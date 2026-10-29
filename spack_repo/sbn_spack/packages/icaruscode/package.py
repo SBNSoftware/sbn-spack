@@ -126,6 +126,7 @@ class Icaruscode(CMakePackage):
     depends_on("larpandora", type=("build", "run"))
     depends_on("larpandoracontent", type=("build", "run"))
     depends_on("larreco", type=("build", "run"))
+    depends_on("larrecodnn", type=("build", "run"))
     depends_on("larvecutils", type=("build", "run"))
     depends_on("larsim", type=("build", "run"))
     depends_on("larexamples", type=("build", "run"))
