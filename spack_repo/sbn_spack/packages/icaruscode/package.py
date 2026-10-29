@@ -149,6 +149,7 @@ class Icaruscode(CMakePackage):
     depends_on("nurandom", type=("build", "run"))
     depends_on("nusimdata", type=("build", "run"))
     depends_on("nufinder", type=("build", "run"))
+    depends_on("larfinder", type=("build", "run"))
     depends_on("postgresql", type=("build", "run"))
     depends_on("range-v3", type=("build", "run"))
     depends_on("sbndaq-artdaq-core", type=("build", "run"))
