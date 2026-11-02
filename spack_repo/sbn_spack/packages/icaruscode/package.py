@@ -163,6 +163,7 @@ class Icaruscode(CMakePackage):
     depends_on("py-torch", type=("build", "run"))
     depends_on("torch-scatter", type=("build", "run"))
     depends_on("hep-hpc", type=("build", "run"))
+    depends_on("delaunator-cpp", type=("build", "run"))
     depends_on("spdlog", type=("build", "run"))
     depends_on("fmt", type=("build", "run"))
     depends_on("py-tensorflow", type=("build", "run"))
