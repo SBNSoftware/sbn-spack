@@ -186,6 +186,9 @@ class Icaruscode(CMakePackage):
                 self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2),self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2))
                 ]
 
+    def patch(self):
+        filter_file('icaruscode LANGUAGES', 'icaruscode VERSION ${${PROJECT_NAME}_CMAKE_PROJECT_VERSION_STRING} LANGUAGES','CMakeLists.txt')
+
     def cmake_args(self):
         # Set CMake args.
         tdir = "{0}/lib/python{1}/site-packages/tensorflow".format(
